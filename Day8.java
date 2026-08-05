@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class ArrayAnalysis {
+public class Day8 {
 
     // Display Array
     public static void display(int[] arr) {

@@ -1,6 +1,6 @@
 import java.util.Scanner;
 
-public class Day6_NumberUtilities {
+public class Day6 {
 
     static boolean isPrime(int n) {
         if (n <= 1) return false;
