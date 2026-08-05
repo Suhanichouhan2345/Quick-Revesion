@@ -1,0 +1,47 @@
+const express = require("express");
+const app = express();
+
+const movies = [
+  {
+    id: 1,
+    title: "KGF",
+    rating: 9,
+  },
+  {
+    id: 2,
+    title: "Pushpa",
+    rating: 8,
+  },
+  {
+    id: 3,
+    title: "Bahubali",
+    rating: 10,
+  },
+  {
+    id: 4,
+    title: "Animal",
+    rating: 7,
+  },
+];
+
+app.get("/movies", (req, res) => {
+  let rating = Number(req.query.rating);
+
+  let result = movies;
+
+  if (rating) {
+    result = movies
+      .filter((movie) => movie.rating >= rating)
+      .map((movie) => {
+        return {
+          title: movie.title,
+        };
+      });
+  }
+
+  res.send(result);
+});
+
+app.listen(3000, () => {
+  console.log("Server Started");
+});
