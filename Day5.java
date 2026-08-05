@@ -25,7 +25,7 @@ class Student {
     }
 }
 
-public class StudentManagementSystem {
+public class Day5 {
 
     static Scanner sc = new Scanner(System.in);
     static ArrayList<Student> students = new ArrayList<>();
