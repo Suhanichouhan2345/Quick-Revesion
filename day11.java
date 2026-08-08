@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class LibraryManagement {
+public class day11 {
 
     static class Book {
         int id;
