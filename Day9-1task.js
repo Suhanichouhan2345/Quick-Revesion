@@ -76,4 +76,93 @@ tracker.updateExpense(2, 500);
 tracker.removeExpense(5);
 
 console.log("After Update & Delete");
-tracker.displayExpenses();
+tracker.displayExpenses();const students = [
+  { id: 1, name: "Rahul", course: "Java", marks: 85 },
+  { id: 2, name: "Aman", course: "MERN", marks: 72 },
+  { id: 3, name: "Riya", course: "Java", marks: 91 },
+  { id: 4, name: "Neha", course: "Python", marks: 65 },
+  { id: 5, name: "Arjun", course: "MERN", marks: 88 },
+  { id: 6, name: "Priya", course: "Python", marks: 78 }
+];
+
+// 1. Display all students
+console.log("All Students:");
+students.forEach((student) => {
+  console.log(student.name, student.course, student.marks);
+});
+
+// 2. Students who scored 80+
+const toppers = students.filter((student) => student.marks >= 80);
+
+console.log("\nToppers:");
+console.log(toppers);
+
+// 3. Get only student names
+const names = students.map((student) => student.name);
+
+console.log("\nStudent Names:");
+console.log(names);
+
+// 4. Find a particular student
+const student = students.find((student) => student.id === 3);
+
+console.log("\nStudent with ID 3:");
+console.log(student);
+
+// 5. Sort students by marks
+const sortedStudents = [...students].sort((a, b) => b.marks - a.marks);
+
+console.log("\nStudents Sorted by Marks:");
+console.log(sortedStudents);
+
+// 6. Calculate total marks
+const totalMarks = students.reduce((total, student) => {
+  return total + student.marks;
+}, 0);
+
+console.log("\nTotal Marks:", totalMarks);
+
+// 7. Calculate average marks
+const averageMarks = totalMarks / students.length;
+
+console.log("Average Marks:", averageMarks);
+
+// 8. Count students by course
+const courseCount = students.reduce((count, student) => {
+  count[student.course] = (count[student.course] || 0) + 1;
+  return count;
+}, {});
+
+console.log("\nCourse Count:");
+console.log(courseCount);
+
+// 9. Students who passed
+const passedStudents = students.filter((student) => student.marks >= 40);
+
+console.log("\nPassed Students:");
+console.log(passedStudents);
+
+// 10. Add grade to every student
+const studentsWithGrade = students.map((student) => {
+  let grade;
+
+  if (student.marks >= 90) {
+    grade = "A+";
+  } else if (student.marks >= 80) {
+    grade = "A";
+  } else if (student.marks >= 70) {
+    grade = "B";
+  } else if (student.marks >= 60) {
+    grade = "C";
+  } else {
+    grade = "D";
+  }
+
+  return {
+    ...student,
+    grade: grade
+  };
+});
+
+console.log("\nStudents With Grade:");
+console.log(studentsWithGrade);
