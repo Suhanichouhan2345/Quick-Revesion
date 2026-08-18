@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Spice Garden Restaurant</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #fffaf5;
+            color: #292524;
+        }
+
+        /* NAVBAR */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: #292524;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 27px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #f59e0b;
+        }
+
+        nav {
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            color: #f59e0b;
+        }
+
+        .book-btn {
+            background: #f59e0b;
+            padding: 10px 16px;
+            border-radius: 6px;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 600px;
+            padding: 80px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background:
+                linear-gradient(
+                    rgba(0,0,0,0.65),
+                    rgba(0,0,0,0.65)
+                ),
+                #78350f;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero-content small {
+            color: #fbbf24;
+            font-size: 17px;
+            letter-spacing: 2px;
+        }
+
+        .hero-content h1 {
+            font-size: 58px;
+            margin: 20px 0;
+        }
+
+        .hero-content h1 span {
+            color: #f59e0b;
+        }
+
+        .hero-content p {
+            color: #e7e5e4;
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .primary-btn,
+        .secondary-btn {
+            padding: 14px 25px;
+            text-decoration: none;
+            border-radius: 7px;
+            font-weight: bold;
+        }
+
+        .primary-btn {
+            background: #f59e0b;
+            color: #292524;
+        }
+
+        .secondary-btn {
+            border: 1px solid white;
+            color: white;
+        }
+
+        .primary-btn:hover {
+            background: #d97706;
+        }
+
+        /* ABOUT */
+
+        .container {
+            width: 88%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        .about {
+            padding: 80px 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .about-image {
+            height: 400px;
+            background: #fed7aa;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 120px;
+        }
+
+        .about-content h2 {
+            font-size: 38px;
+            margin-bottom: 20px;
+        }
+
+        .about-content h2 span {
+            color: #d97706;
+        }
+
+        .about-content p {
+            color: #57534e;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .features {
+            margin-top: 25px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .feature {
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.07);
+        }
+
+        /* SECTION TITLE */
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 45px;
+        }
+
+        .section-title small {
+            color: #d97706;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+            margin-top: 10px;
+        }
+
+        .section-title p {
+            margin-top: 10px;
+            color: #78716c;
+        }
+
+        /* MENU */
+
+        .menu-section {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .menu-card {
+            background: #fffaf5;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .food-image {
+            height: 200px;
+            background: #fed7aa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 90px;
+        }
+
+        .menu-info {
+            padding: 22px;
+        }
+
+        .menu-info h3 {
+            margin-bottom: 8px;
+        }
+
+        .menu-info p {
+            color: #78716c;
+            font-size: 14px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .menu-bottom {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .price {
+            font-size: 21px;
+            font-weight: bold;
+            color: #b45309;
+        }
+
+        .order-btn {
+            background: #292524;
+            color: white;
+            padding: 8px 13px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        /* CHEFS */
+
+        .chef-section {
+            padding: 80px 0;
+        }
+
+        .chef-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .chef {
+            background: white;
+            text-align: center;
+            padding-bottom: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+        }
+
+        .chef-photo {
+            height: 220px;
+            background: #e7e5e4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 90px;
+        }
+
+        .chef h3 {
+            margin: 18px 0 6px;
+        }
+
+        .chef p {
+            color: #78716c;
+        }
+
+        /* REVIEWS */
+
+        .reviews {
+            padding: 80px 0;
+            background: #292524;
+            color: white;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .review {
+            background: #44403c;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .stars {
+            color: #fbbf24;
+            margin-bottom: 15px;
+        }
+
+        .review p {
+            color: #d6d3d1;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .review h4 {
+            color: #fbbf24;
+        }
+
+        /* RESERVATION */
+
+        .reservation {
+            padding: 80px 0;
+        }
+
+        .reservation-box {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        }
+
+        .reservation-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .input-group.full {
+            grid-column: 1 / 3;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            padding: 13px;
+            border: 1px solid #d6d3d1;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .input-group textarea {
+            height: 110px;
+            resize: none;
+        }
+
+        .submit-btn {
+            grid-column: 1 / 3;
+            border: none;
+            padding: 14px;
+            background: #d97706;
+            color: white;
+            border-radius: 7px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background: #b45309;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #1c1917;
+            color: white;
+            padding: 60px 7% 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 18px;
+        }
+
+        .footer-column p {
+            color: #a8a29e;
+            line-height: 1.7;
+        }
+
+        .footer-column a {
+            display: block;
+            text-decoration: none;
+            color: #a8a29e;
+            margin-bottom: 10px;
+        }
+
+        .footer-column a:hover {
+            color: #f59e0b;
+        }
+
+        .copyright {
+            text-align: center;
+            border-top: 1px solid #44403c;
+            margin-top: 40px;
+            padding-top: 20px;
+            color: #78716c;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 900px) {
+
+            .hero {
+                text-align: center;
+            }
+
+            .hero-content {
+                margin: auto;
+            }
+
+            .about {
+                grid-template-columns: 1fr;
+            }
+
+            .menu-grid,
+            .chef-grid,
+            .review-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 650px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .hero {
+                min-height: 500px;
+            }
+
+            .hero-content h1 {
+                font-size: 40px;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .menu-grid,
+            .chef-grid,
+            .review-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .reservation-form {
+                grid-template-columns: 1fr;
+            }
+
+            .input-group.full,
+            .submit-btn {
+                grid-column: 1;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+
+    <header>
+
+        <div class="logo">
+            Spice<span>Garden</span>
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#menu">Menu</a>
+            <a href="#chefs">Chefs</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#reservation" class="book-btn">
+                Book Table
+            </a>
+        </nav>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <small>WELCOME TO SPICE GARDEN</small>
+
+            <h1>
+                Taste The
+                <span>Tradition</span>
+            </h1>
+
+            <p>
+                Experience authentic flavors, fresh ingredients and
+                unforgettable dining moments prepared by our expert chefs.
+            </p>
+
+            <div class="hero-buttons">
+
+                <a href="#menu" class="primary-btn">
+                    Explore Menu
+                </a>
+
+                <a href="#reservation" class="secondary-btn">
+                    Reserve Table
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section id="about">
+
+        <div class="container">
+
+            <div class="about">
+
+                <div class="about-image">
+                    🍛
+                </div>
+
+                <div class="about-content">
+
+                    <h2>
+                        A Place Where
+                        <span>Food Meets Love</span>
+                    </h2>
+
+                    <p>
+                        Spice Garden is a family-friendly restaurant
+                        dedicated to bringing traditional Indian flavors
+                        to your table.
+                    </p>
+
+                    <p>
+                        Every dish is prepared with fresh ingredients,
+                        carefully selected spices and a lot of passion.
+                    </p>
+
+                    <div class="features">
+
+                        <div class="feature">
+                            🥘 Fresh Ingredients
+                        </div>
+
+                        <div class="feature">
+                            👨‍🍳 Expert Chefs
+                        </div>
+
+                        <div class="feature">
+                            🌿 Healthy Food
+                        </div>
+
+                        <div class="feature">
+                            ⭐ Premium Service
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- MENU -->
+
+    <section class="menu-section" id="menu">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <small>OUR SPECIAL MENU</small>
+
+                <h2>Popular Dishes</h2>
+
+                <p>
+                    Enjoy our chef's most loved dishes.
+                </p>
+
+            </div>
+
+            <div class="menu-grid">
+
+                <div class="menu-card">
+
+                    <div class="food-image">
+                        🍛
+                    </div>
+
+                    <div class="menu-info">
+
+                        <h3>Butter Paneer</h3>
+
+                        <p>
+                            Soft paneer cooked in creamy tomato
+                            gravy with aromatic spices.
+                        </p>
+
+                        <div class="menu-bottom">
+                            <span class="price">₹280</span>
+                            <a href="#" class="order-btn">
+                                Order Now
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="menu-card">
+
+                    <div class="food-image">
+                        🍕
+                    </div>
+
+                    <div class="menu-info">
+
+                        <h3>Veg Pizza</h3>
+
+                        <p>
+                            Fresh vegetables, cheese and herbs
+                            on a crispy pizza base.
+                        </p>
+
+                        <div class="menu-bottom">
+                            <span class="price">₹320</span>
+                            <a href="#" class="order-btn">
+                                Order Now
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="menu-card">
+
+                    <div class="food-image">
+                        🍜
+                    </div>
+
+                    <div class="menu-info">
+
+                        <h3>Hakka Noodles</h3>
+
+                        <p>
+                            Delicious noodles tossed with fresh
+                            vegetables and special sauces.
+                        </p>
+
+                        <div class="menu-bottom">
+                            <span class="price">₹220</span>
+                            <a href="#" class="order-btn">
+                                Order Now
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="menu-card">
+
+                    <div class="food-image">
+                        🥗
+                    </div>
+
+                    <div class="menu-info">
+
+                        <h3>Garden Salad</h3>
+
+                        <p>
+                            Fresh seasonal vegetables with
+                            our homemade dressing.
+                        </p>
+
+                        <div class="menu-bottom">
+                            <span class="price">₹180</span>
+                            <a href="#" class="order-btn">
+                                Order Now
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="menu-card">
+
+                    <div class="food-image">
+                        🍲
+                    </div>
+
+                    <div class="menu-info">
+
+                        <h3>Dal Tadka</h3>
+
+                        <p>
+                            Traditional yellow dal prepared with
+                            aromatic tempering.
+                        </p>
+
+                        <div class="menu-bottom">
+                            <span class="price">₹160</span>
+                            <a href="#" class="order-btn">
+                                Order Now
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="menu-card">
+
+                    <div class="food-image">
+                        🍰
+                    </div>
+
+                    <div class="menu-info">
+
+                        <h3>Chocolate Cake</h3>
+
+                        <p>
+                            Rich chocolate cake with creamy
+                            chocolate frosting.
+                        </p>
+
+                        <div class="menu-bottom">
+                            <span class="price">₹190</span>
+                            <a href="#" class="order-btn">
+                                Order Now
+                            </a>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CHEFS -->
+
+    <section class="chef-section" id="chefs">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <small>OUR TEAM</small>
+
+                <h2>Meet Our Chefs</h2>
+
+                <p>
+                    Passionate chefs creating delicious experiences.
+                </p>
+
+            </div>
+
+            <div class="chef-grid">
+
+                <div class="chef">
+
+                    <div class="chef-photo">
+                        👨‍🍳
+                    </div>
+
+                    <h3>Rahul Sharma</h3>
+
+                    <p>Head Chef</p>
+
+                </div>
+
+
+                <div class="chef">
+
+                    <div class="chef-photo">
+                        👩‍🍳
+                    </div>
+
+                    <h3>Priya Verma</h3>
+
+                    <p>Pastry Chef</p>
+
+                </div>
+
+
+                <div class="chef">
+
+                    <div class="chef-photo">
+                        👨‍🍳
+                    </div>
+
+                    <h3>Amit Singh</h3>
+
+                    <p>Indian Cuisine Chef</p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- REVIEWS -->
+
+    <section class="reviews" id="reviews">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <small>TESTIMONIALS</small>
+
+                <h2>What Our Customers Say</h2>
+
+            </div>
+
+            <div class="review-grid">
+
+                <div class="review">
+
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+
+                    <p>
+                        Amazing food and excellent service.
+                        The butter paneer was absolutely delicious.
+                    </p>
+
+                    <h4>— Ananya</h4>
+
+                </div>
+
+
+                <div class="review">
+
+                    <div class="stars">
+                        ★★★★★
+                    </div>
+
+                    <p>
+                        Beautiful atmosphere and very friendly
+                        staff. Definitely coming back again.
+                    </p>
+
+                    <h4>— Rohan</h4>
+
+                </div>
+
+
+                <div class="review">
+
+                    <div class="stars">
+                        ★★★★☆
+                    </div>
+
+                    <p>
+                        Great place for family dinner.
+                        Food quality and presentation were excellent.
+                    </p>
+
+                    <h4>— Neha</h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RESERVATION -->
+
+    <section class="reservation" id="reservation">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <small>RESERVE YOUR TABLE</small>
+
+                <h2>Book A Table</h2>
+
+                <p>
+                    Make your reservation and enjoy a wonderful evening.
+                </p>
+
+            </div>
+
+            <div class="reservation-box">
+
+                <form class="reservation-form">
+
+                    <div class="input-group">
+
+                        <label>Your Name</label>
+
+                        <input
+                            type="text"
+                            placeholder="Enter your name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Email</label>
+
+                        <input
+                            type="email"
+                            placeholder="Enter your email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Phone</label>
+
+                        <input
+                            type="tel"
+                            placeholder="Enter phone number"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Date</label>
+
+                        <input
+                            type="date"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Guests</label>
+
+                        <select>
+
+                            <option>1 Person</option>
+                            <option>2 People</option>
+                            <option>3 People</option>
+                            <option>4 People</option>
+                            <option>5+ People</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <label>Time</label>
+
+                        <select>
+
+                            <option>12:00 PM</option>
+                            <option>1:00 PM</option>
+                            <option>6:00 PM</option>
+                            <option>7:00 PM</option>
+                            <option>8:00 PM</option>
+                            <option>9:00 PM</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <div class="input-group full">
+
+                        <label>Special Request</label>
+
+                        <textarea
+                            placeholder="Any special request..."
+                        ></textarea>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="submit-btn"
+                    >
+                        Confirm Reservation
+                    </button>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-grid">
+
+            <div class="footer-column">
+
+                <h3>SpiceGarden</h3>
+
+                <p>
+                    Authentic flavors, fresh ingredients and
+                    unforgettable dining experiences.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>Quick Links</h3>
+
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#menu">Menu</a>
+                <a href="#reservation">Reservation</a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>Opening Hours</h3>
+
+                <p>Monday - Friday</p>
+                <p>11:00 AM - 10:00 PM</p>
+
+                <br>
+
+                <p>Saturday - Sunday</p>
+                <p>10:00 AM - 11:00 PM</p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>Contact</h3>
+
+                <a href="#">
+                    📞 +91 98765 43210
+                </a>
+
+                <a href="#">
+                    📧 hello@spicegarden.com
+                </a>
+
+                <a href="#">
+                    📍 Bhopal, India
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            <p>
+                © 2026 SpiceGarden Restaurant. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
