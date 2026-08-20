@@ -1,0 +1,936 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Foodie Restaurant</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #fffaf5;
+            color: #222;
+        }
+
+        header {
+            background: #2d1b14;
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #ff8c42;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: #ff8c42;
+        }
+
+        .hero {
+            min-height: 90vh;
+            background:
+                linear-gradient(
+                    rgba(0, 0, 0, 0.6),
+                    rgba(0, 0, 0, 0.6)
+                ),
+                url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4")
+                center/cover;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: 30px;
+        }
+
+        .hero-content {
+            max-width: 750px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #ff8c42;
+            color: white;
+            padding: 14px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: bold;
+            margin: 5px;
+        }
+
+        .btn:hover {
+            background: #e76f2f;
+        }
+
+        section {
+            padding: 80px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 15px;
+            color: #2d1b14;
+        }
+
+        .section-description {
+            text-align: center;
+            color: #777;
+            max-width: 650px;
+            margin: 0 auto 45px;
+            line-height: 1.7;
+        }
+
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .about-text h2 {
+            font-size: 38px;
+            color: #2d1b14;
+            margin-bottom: 20px;
+        }
+
+        .about-text p {
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 15px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .feature {
+            background: white;
+            padding: 30px;
+            text-align: center;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .feature-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #777;
+            line-height: 1.6;
+        }
+
+        #menu {
+            background: #f8eee7;
+        }
+
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .menu-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .menu-content {
+            padding: 22px;
+        }
+
+        .menu-content h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .menu-content p {
+            color: #777;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            color: #ff6b35;
+            font-size: 21px;
+            font-weight: bold;
+        }
+
+        .rating {
+            float: right;
+            color: #f59e0b;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.04);
+        }
+
+        .reviews {
+            background: #2d1b14;
+            color: white;
+        }
+
+        .reviews .section-title {
+            color: white;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .review {
+            background: #3b251c;
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .review p {
+            color: #ddd;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .review h4 {
+            color: #ff9f68;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .contact-info {
+            background: #2d1b14;
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+        }
+
+        .contact-info h2 {
+            margin-bottom: 25px;
+        }
+
+        .contact-info p {
+            margin: 20px 0;
+            color: #ddd;
+        }
+
+        form {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        input,
+        textarea,
+        select {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 18px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        textarea {
+            height: 130px;
+            resize: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #ff8c42;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 17px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #e76f2f;
+        }
+
+        footer {
+            background: #1b100c;
+            color: white;
+            padding: 40px 7%;
+            text-align: center;
+        }
+
+        footer h2 {
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            color: #aaa;
+            margin: 8px;
+        }
+
+        .social {
+            margin-top: 20px;
+        }
+
+        .social a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 18px;
+        }
+
+        .social a:hover {
+            color: #ff8c42;
+        }
+
+        @media (max-width: 900px) {
+
+            .hero h1 {
+                font-size: 45px;
+            }
+
+            .menu-grid,
+            .review-grid,
+            .features {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 6px;
+                font-size: 14px;
+            }
+
+            .hero h1 {
+                font-size: 35px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .menu-grid,
+            .review-grid,
+            .features,
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 60px 5%;
+            }
+
+            .section-title {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            Food<span>ie</span>
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#menu">Menu</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+    </header>
+
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h1>Delicious Food, Happy Mood</h1>
+
+            <p>
+                Welcome to Foodie Restaurant, where fresh ingredients,
+                traditional recipes and modern flavors come together
+                to create an unforgettable dining experience.
+            </p>
+
+            <a href="#menu" class="btn">
+                Explore Menu
+            </a>
+
+            <a href="#contact" class="btn">
+                Book a Table
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <section id="about">
+
+        <div class="about">
+
+            <img
+                src="https://images.unsplash.com/photo-1552566626-52f8b828add9"
+                alt="Restaurant"
+            >
+
+            <div class="about-text">
+
+                <h2>We Cook With Love</h2>
+
+                <p>
+                    Foodie Restaurant was created with one simple goal:
+                    to serve delicious food in a warm and comfortable
+                    environment.
+                </p>
+
+                <p>
+                    Our chefs use fresh vegetables, premium ingredients
+                    and special recipes to prepare every dish with care.
+                </p>
+
+                <p>
+                    Whether you are having dinner with your family,
+                    celebrating a special occasion or meeting friends,
+                    we are always happy to serve you.
+                </p>
+
+                <a href="#contact" class="btn">
+                    Visit Us
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section>
+
+        <h2 class="section-title">
+            Why Choose Us?
+        </h2>
+
+        <p class="section-description">
+            We believe great food is not only about taste.
+            It is also about quality, service and experience.
+        </p>
+
+        <div class="features">
+
+            <div class="feature">
+
+                <div class="feature-icon">🍕</div>
+
+                <h3>Fresh Food</h3>
+
+                <p>
+                    We prepare every dish using fresh and
+                    high-quality ingredients.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">👨‍🍳</div>
+
+                <h3>Expert Chefs</h3>
+
+                <p>
+                    Our experienced chefs bring unique flavors
+                    to every plate.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">🚚</div>
+
+                <h3>Fast Service</h3>
+
+                <p>
+                    Enjoy quick and friendly service every time
+                    you visit our restaurant.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="menu">
+
+        <h2 class="section-title">
+            Our Popular Menu
+        </h2>
+
+        <p class="section-description">
+            Explore some of our most loved dishes.
+        </p>
+
+
+        <div class="menu-grid">
+
+            <div class="menu-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38"
+                    alt="Pizza"
+                >
+
+                <div class="menu-content">
+
+                    <h3>Italian Pizza</h3>
+
+                    <p>
+                        Crispy crust topped with fresh vegetables,
+                        cheese and delicious herbs.
+                    </p>
+
+                    <span class="price">₹299</span>
+
+                    <span class="rating">
+                        ⭐ 4.8
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd"
+                    alt="Burger"
+                >
+
+                <div class="menu-content">
+
+                    <h3>Classic Burger</h3>
+
+                    <p>
+                        Juicy grilled patty with fresh vegetables,
+                        cheese and special sauce.
+                    </p>
+
+                    <span class="price">₹199</span>
+
+                    <span class="rating">
+                        ⭐ 4.7
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1551183053-bf91a1d81141"
+                    alt="Pasta"
+                >
+
+                <div class="menu-content">
+
+                    <h3>Creamy Pasta</h3>
+
+                    <p>
+                        Delicious creamy pasta prepared with
+                        herbs and premium cheese.
+                    </p>
+
+                    <span class="price">₹249</span>
+
+                    <span class="rating">
+                        ⭐ 4.9
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1601050690597-df0568f70950"
+                    alt="Samosa"
+                >
+
+                <div class="menu-content">
+
+                    <h3>Special Samosa</h3>
+
+                    <p>
+                        Crispy golden samosa served with
+                        spicy and sweet chutney.
+                    </p>
+
+                    <span class="price">₹99</span>
+
+                    <span class="rating">
+                        ⭐ 4.6
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1551024506-0bccd828d307"
+                    alt="Dessert"
+                >
+
+                <div class="menu-content">
+
+                    <h3>Chocolate Dessert</h3>
+
+                    <p>
+                        Rich chocolate dessert perfect for
+                        finishing your meal.
+                    </p>
+
+                    <span class="price">₹179</span>
+
+                    <span class="rating">
+                        ⭐ 4.9
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="menu-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1544145945-f90425340c7e"
+                    alt="Drink"
+                >
+
+                <div class="menu-content">
+
+                    <h3>Fresh Mocktail</h3>
+
+                    <p>
+                        Refreshing fruit-based mocktail with
+                        a perfect balance of sweetness.
+                    </p>
+
+                    <span class="price">₹149</span>
+
+                    <span class="rating">
+                        ⭐ 4.8
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="gallery">
+
+        <h2 class="section-title">
+            Food Gallery
+        </h2>
+
+        <p class="section-description">
+            Take a look at some delicious moments from our kitchen.
+        </p>
+
+        <div class="gallery">
+
+            <img
+                src="https://images.unsplash.com/photo-1504674900247-0877df9cc836"
+                alt="Food"
+            >
+
+            <img
+                src="https://images.unsplash.com/photo-1513104890138-7c749659a591"
+                alt="Pizza"
+            >
+
+            <img
+                src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601"
+                alt="Pasta"
+            >
+
+            <img
+                src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f"
+                alt="Restaurant Food"
+            >
+
+        </div>
+
+    </section>
+
+
+    <section class="reviews">
+
+        <h2 class="section-title">
+            Customer Reviews
+        </h2>
+
+        <p class="section-description">
+            See what our customers say about their experience.
+        </p>
+
+
+        <div class="review-grid">
+
+            <div class="review">
+
+                <p>
+                    "Amazing food and excellent service.
+                    The pizza was absolutely delicious."
+                </p>
+
+                <h4>— Rahul Sharma</h4>
+
+            </div>
+
+
+            <div class="review">
+
+                <p>
+                    "Beautiful atmosphere and very friendly staff.
+                    Perfect place for family dinner."
+                </p>
+
+                <h4>— Priya Verma</h4>
+
+            </div>
+
+
+            <div class="review">
+
+                <p>
+                    "The pasta was creamy and tasty.
+                    Definitely coming back again."
+                </p>
+
+                <h4>— Aman Singh</h4>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="contact">
+
+        <h2 class="section-title">
+            Contact & Reservation
+        </h2>
+
+        <p class="section-description">
+            Reserve your table or send us a message.
+        </p>
+
+
+        <div class="contact-container">
+
+            <div class="contact-info">
+
+                <h2>Visit Foodie Restaurant</h2>
+
+                <p>📍 MG Road, Bhopal, Madhya Pradesh</p>
+
+                <p>📞 +91 98765 43210</p>
+
+                <p>📧 hello@foodierestaurant.com</p>
+
+                <p>🕐 Monday - Sunday: 11:00 AM - 11:00 PM</p>
+
+            </div>
+
+
+            <form>
+
+                <input
+                    type="text"
+                    placeholder="Your Name"
+                    required
+                >
+
+                <input
+                    type="email"
+                    placeholder="Your Email"
+                    required
+                >
+
+                <input
+                    type="tel"
+                    placeholder="Phone Number"
+                >
+
+                <select>
+
+                    <option>Select Guests</option>
+                    <option>1 Person</option>
+                    <option>2 People</option>
+                    <option>3 People</option>
+                    <option>4 People</option>
+                    <option>5+ People</option>
+
+                </select>
+
+                <textarea
+                    placeholder="Your Message"
+                ></textarea>
+
+                <button type="submit">
+                    Reserve Table
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        <h2>Foodie Restaurant</h2>
+
+        <p>
+            Delicious food. Great moments. Happy memories.
+        </p>
+
+        <p>
+            © 2026 Foodie Restaurant. All Rights Reserved.
+        </p>
+
+        <div class="social">
+
+            <a href="#">Instagram</a>
+            <a href="#">Facebook</a>
+            <a href="#">Twitter</a>
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
