@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TravelX - Explore The World</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f5f8fa;
+            color: #1f2937;
+        }
+
+        /* HEADER */
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: white;
+            padding: 18px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 29px;
+            font-weight: bold;
+            color: #0f766e;
+        }
+
+        .logo span {
+            color: #f59e0b;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #374151;
+            margin-left: 25px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            color: #0f766e;
+        }
+
+        .nav-btn {
+            background: #0f766e;
+            color: white !important;
+            padding: 10px 18px;
+            border-radius: 20px;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 88vh;
+            background:
+                linear-gradient(
+                    rgba(0,0,0,0.45),
+                    rgba(0,0,0,0.45)
+                ),
+                url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e")
+                center/cover;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 40px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h1 {
+            font-size: 62px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 20px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #f59e0b;
+            color: white;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 25px;
+            margin: 5px;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #d97706;
+        }
+
+        .btn-green {
+            background: #0f766e;
+        }
+
+        .btn-green:hover {
+            background: #115e59;
+        }
+
+        /* COMMON */
+
+        section {
+            padding: 80px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .section-description {
+            text-align: center;
+            color: #6b7280;
+            max-width: 650px;
+            margin: 0 auto 45px;
+            line-height: 1.7;
+        }
+
+        /* SEARCH BOX */
+
+        .search-box {
+            background: white;
+            max-width: 950px;
+            margin: -45px auto 0;
+            position: relative;
+            z-index: 10;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .search-form input,
+        .search-form select {
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            outline: none;
+        }
+
+        .search-form button {
+            border: none;
+            background: #0f766e;
+            color: white;
+            border-radius: 7px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* DESTINATIONS */
+
+        .destination-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .destination {
+            background: white;
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .destination:hover {
+            transform: translateY(-8px);
+        }
+
+        .destination-image {
+            height: 230px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .destination-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.4s;
+        }
+
+        .destination:hover img {
+            transform: scale(1.08);
+        }
+
+        .destination-price {
+            position: absolute;
+            right: 15px;
+            bottom: 15px;
+            background: #f59e0b;
+            color: white;
+            padding: 7px 12px;
+            border-radius: 20px;
+        }
+
+        .destination-info {
+            padding: 22px;
+        }
+
+        .destination-info h3 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .destination-info p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .rating {
+            color: #f59e0b;
+        }
+
+        /* ABOUT */
+
+        .about {
+            background: #ecfdf5;
+        }
+
+        .about-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-image img {
+            width: 100%;
+            border-radius: 15px;
+        }
+
+        .about-content h2 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .about-content p {
+            color: #6b7280;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .stat {
+            background: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .stat h3 {
+            font-size: 28px;
+            color: #0f766e;
+        }
+
+        .stat p {
+            margin: 5px 0 0;
+            font-size: 13px;
+        }
+
+        /* PACKAGES */
+
+        .package-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .package {
+            background: white;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+            border-top: 5px solid #0f766e;
+        }
+
+        .package h3 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .package-price {
+            font-size: 30px;
+            color: #0f766e;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .package ul {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .package li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            color: #666;
+        }
+
+        /* FEATURES */
+
+        .features {
+            background: #111827;
+            color: white;
+        }
+
+        .features .section-title {
+            color: white;
+        }
+
+        .features .section-description {
+            color: #9ca3af;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            background: #1f2937;
+            padding: 30px 20px;
+            text-align: center;
+            border-radius: 12px;
+        }
+
+        .feature-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        /* GALLERY */
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .gallery img {
+            width: 100%;
+            height: 230px;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .gallery img:hover {
+            transform: scale(1.04);
+        }
+
+        /* REVIEWS */
+
+        .review-section {
+            background: #fef3c7;
+        }
+
+        .review-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .review {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .review p {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .review h4 {
+            color: #0f766e;
+        }
+
+        /* CONTACT */
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+        }
+
+        .contact-info {
+            background: #0f766e;
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+        }
+
+        .contact-info h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            color: #d1fae5;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+
+        form {
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+        form input,
+        form select,
+        form textarea {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            outline: none;
+        }
+
+        form textarea {
+            height: 130px;
+            resize: none;
+        }
+
+        form button {
+            width: 100%;
+            padding: 14px;
+            background: #0f766e;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #0f172a;
+            color: white;
+            padding: 50px 7% 20px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 35px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 18px;
+        }
+
+        .footer-column p {
+            color: #9ca3af;
+            line-height: 1.7;
+        }
+
+        .footer-column a {
+            display: block;
+            color: #9ca3af;
+            text-decoration: none;
+            margin-bottom: 12px;
+        }
+
+        .footer-column a:hover {
+            color: #f59e0b;
+        }
+
+        .copyright {
+            border-top: 1px solid #374151;
+            padding-top: 20px;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 950px) {
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .search-form {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .destination-grid,
+            .package-grid,
+            .review-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .feature-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about-container,
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 7px;
+                font-size: 13px;
+            }
+
+            .hero {
+                min-height: 75vh;
+                padding: 30px 20px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .search-form,
+            .destination-grid,
+            .package-grid,
+            .feature-grid,
+            .gallery,
+            .review-grid,
+            .stats,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 60px 5%;
+            }
+
+            .section-title {
+                font-size: 30px;
+            }
+
+            .about-content h2 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="logo">
+            Travel<span>X</span>
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#destinations">Destinations</a>
+            <a href="#packages">Packages</a>
+            <a href="#gallery">Gallery</a>
+            <a href="#contact" class="nav-btn">Book Now</a>
+        </nav>
+
+    </header>
+
+
+    <!-- HERO -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h1>
+                Explore The World
+            </h1>
+
+            <p>
+                Discover beautiful destinations, exciting adventures
+                and unforgettable experiences with TravelX.
+            </p>
+
+            <a href="#destinations" class="btn">
+                Explore Destinations
+            </a>
+
+            <a href="#packages" class="btn btn-green">
+                View Packages
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <form class="search-form">
+
+            <input
+                type="text"
+                placeholder="Where do you want to go?"
+            >
+
+            <input
+                type="date"
+            >
+
+            <select>
+
+                <option>Travelers</option>
+                <option>1 Traveler</option>
+                <option>2 Travelers</option>
+                <option>3 Travelers</option>
+                <option>4+ Travelers</option>
+
+            </select>
+
+            <button type="submit">
+                Search Trip
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- DESTINATIONS -->
+
+    <section id="destinations">
+
+        <h2 class="section-title">
+            Popular Destinations
+        </h2>
+
+        <p class="section-description">
+            Explore some of the world's most beautiful and
+            exciting destinations.
+        </p>
+
+
+        <div class="destination-grid">
+
+            <div class="destination">
+
+                <div class="destination-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34"
+                        alt="Paris"
+                    >
+
+                    <span class="destination-price">
+                        From ₹45,000
+                    </span>
+
+                </div>
+
+                <div class="destination-info">
+
+                    <h3>Paris, France</h3>
+
+                    <p>
+                        Experience the Eiffel Tower,
+                        beautiful streets and French cuisine.
+                    </p>
+
+                    <div class="rating">
+                        ⭐⭐⭐⭐⭐ 4.9
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="destination">
+
+                <div class="destination-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963"
+                        alt="Italy"
+                    >
+
+                    <span class="destination-price">
+                        From ₹52,000
+                    </span>
+
+                </div>
+
+                <div class="destination-info">
+
+                    <h3>Amalfi, Italy</h3>
+
+                    <p>
+                        Discover colorful coastal towns,
+                        beaches and Italian culture.
+                    </p>
+
+                    <div class="rating">
+                        ⭐⭐⭐⭐⭐ 4.8
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="destination">
+
+                <div class="destination-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf"
+                        alt="Tokyo"
+                    >
+
+                    <span class="destination-price">
+                        From ₹65,000
+                    </span>
+
+                </div>
+
+                <div class="destination-info">
+
+                    <h3>Tokyo, Japan</h3>
+
+                    <p>
+                        Explore modern cities, ancient temples
+                        and delicious Japanese food.
+                    </p>
+
+                    <div class="rating">
+                        ⭐⭐⭐⭐⭐ 4.9
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="destination">
+
+                <div class="destination-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1537996194471-e657df975ab4"
+                        alt="Bali"
+                    >
+
+                    <span class="destination-price">
+                        From ₹32,000
+                    </span>
+
+                </div>
+
+                <div class="destination-info">
+
+                    <h3>Bali, Indonesia</h3>
+
+                    <p>
+                        Relax on tropical beaches and explore
+                        beautiful temples and nature.
+                    </p>
+
+                    <div class="rating">
+                        ⭐⭐⭐⭐⭐ 4.8
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="destination">
+
+                <div class="destination-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e"
+                        alt="Dubai"
+                    >
+
+                    <span class="destination-price">
+                        From ₹38,000
+                    </span>
+
+                </div>
+
+                <div class="destination-info">
+
+                    <h3>Dubai, UAE</h3>
+
+                    <p>
+                        Enjoy luxury shopping, desert safaris
+                        and incredible architecture.
+                    </p>
+
+                    <div class="rating">
+                        ⭐⭐⭐⭐☆ 4.7
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="destination">
+
+                <div class="destination-image">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1500534623283-312aade485b7"
+                        alt="Switzerland"
+                    >
+
+                    <span class="destination-price">
+                        From ₹72,000
+                    </span>
+
+                </div>
+
+                <div class="destination-info">
+
+                    <h3>Switzerland</h3>
+
+                    <p>
+                        Enjoy snow-covered mountains,
+                        peaceful lakes and scenic villages.
+                    </p>
+
+                    <div class="rating">
+                        ⭐⭐⭐⭐⭐ 5.0
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+
+    <section class="about">
+
+        <div class="about-container">
+
+            <div class="about-image">
+
+                <img
+                    src="https://images.unsplash.com/photo-1527631746610-bca00a040d60"
+                    alt="Travel"
+                >
+
+            </div>
+
+
+            <div class="about-content">
+
+                <h2>
+                    Travel With Confidence
+                </h2>
+
+                <p>
+                    At TravelX, we believe that traveling should be
+                    exciting, comfortable and stress-free.
+                </p>
+
+                <p>
+                    Our travel experts help you discover amazing
+                    destinations and create memorable experiences.
+                </p>
+
+                <p>
+                    From flights and hotels to complete holiday
+                    packages, we make your journey simple.
+                </p>
+
+
+                <div class="stats">
+
+                    <div class="stat">
+
+                        <h3>10K+</h3>
+
+                        <p>
+                            Happy Travelers
+                        </p>
+
+                    </div>
+
+                    <div class="stat">
+
+                        <h3>80+</h3>
+
+                        <p>
+                            Destinations
+                        </p>
+
+                    </div>
+
+                    <div class="stat">
+
+                        <h3>8+</h3>
+
+                        <p>
+                            Years Experience
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- PACKAGES -->
+
+    <section id="packages">
+
+        <h2 class="section-title">
+            Travel Packages
+        </h2>
+
+        <p class="section-description">
+            Choose the package that matches your travel style.
+        </p>
+
+
+        <div class="package-grid">
+
+            <div class="package">
+
+                <h3>Weekend Escape</h3>
+
+                <div class="package-price">
+                    ₹14,999
+                </div>
+
+                <ul>
+                    <li>✓ 2 Nights Hotel</li>
+                    <li>✓ Breakfast Included</li>
+                    <li>✓ City Tour</li>
+                    <li>✓ Airport Transfer</li>
+                    <li>✓ Travel Support</li>
+                </ul>
+
+                <a href="#contact" class="btn btn-green">
+                    Book Package
+                </a>
+
+            </div>
+
+
+            <div class="package">
+
+                <h3>Premium Holiday</h3>
+
+                <div class="package-price">
+                    ₹34,999
+                </div>
+
+                <ul>
+                    <li>✓ 5 Nights Hotel</li>
+                    <li>✓ Daily Breakfast</li>
+                    <li>✓ Guided Tours</li>
+                    <li>✓ Airport Transfer</li>
+                    <li>✓ Travel Insurance</li>
+                </ul>
+
+                <a href="#contact" class="btn btn-green">
+                    Book Package
+                </a>
+
+            </div>
+
+
+            <div class="package">
+
+                <h3>Luxury Experience</h3>
+
+                <div class="package-price">
+                    ₹69,999
+                </div>
+
+                <ul>
+                    <li>✓ 7 Nights Luxury Hotel</li>
+                    <li>✓ All Meals</li>
+                    <li>✓ Private Guide</li>
+                    <li>✓ Private Transport</li>
+                    <li>✓ Premium Support</li>
+                </ul>
+
+                <a href="#contact" class="btn btn-green">
+                    Book Package
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="features">
+
+        <h2 class="section-title">
+            Why Choose TravelX?
+        </h2>
+
+        <p class="section-description">
+            We make your travel experience easier from beginning
+            to end.
+        </p>
+
+
+        <div class="feature-grid">
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ✈️
+                </div>
+
+                <h3>
+                    Easy Booking
+                </h3>
+
+                <p>
+                    Book flights, hotels and packages
+                    easily from one place.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🏨
+                </div>
+
+                <h3>
+                    Best Hotels
+                </h3>
+
+                <p>
+                    Stay at carefully selected hotels
+                    with great reviews.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    💰
+                </div>
+
+                <h3>
+                    Best Prices
+                </h3>
+
+                <p>
+                    Get competitive prices and
+                    exciting travel deals.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🛡️
+                </div>
+
+                <h3>
+                    Safe Travel
+                </h3>
+
+                <p>
+                    Travel with confidence with
+                    our dedicated support team.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- GALLERY -->
+
+    <section id="gallery">
+
+        <h2 class="section-title">
+            Travel Gallery
+        </h2>
+
+        <p class="section-description">
+            Get inspired for your next adventure.
+        </p>
+
+
+        <div class="gallery">
+
+            <img
+                src="https://images.unsplash.com/photo-1469474968028-56623f02e42e"
+                alt="Nature"
+            >
+
+            <img
+                src="https://images.unsplash.com/photo-1500534623283-312aade485b7"
+                alt="Mountains"
+            >
+
+            <img
+                src="https://images.unsplash.com/photo-1501785888041-af3ef285b470"
+                alt="Landscape"
+            >
+
+            <img
+                src="https://images.unsplash.com/photo-1470770841072-f978cf4d019e"
+                alt="Lake"
+            >
+
+        </div>
+
+    </section>
+
+
+    <!-- REVIEWS -->
+
+    <section class="review-section">
+
+        <h2 class="section-title">
+            What Travelers Say
+        </h2>
+
+        <p class="section-description">
+            Thousands of travelers have enjoyed their journeys
+            with us.
+        </p>
+
+
+        <div class="review-grid">
+
+            <div class="review">
+
+                <p>
+                    "The entire trip was perfectly planned.
+                    Hotels were excellent and the support team
+                    was very helpful."
+                </p>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <h4>
+                    — Riya Sharma
+                </h4>
+
+            </div>
+
+
+            <div class="review">
+
+                <p>
+                    "Booking was very easy and the package
+                    price was much better than other options."
+                </p>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <h4>
+                    — Aman Verma
+                </h4>
+
+            </div>
+
+
+            <div class="review">
+
+                <p>
+                    "Our Bali vacation was unforgettable.
+                    Everything from hotel to transportation
+                    was handled perfectly."
+                </p>
+
+                <div class="rating">
+                    ⭐⭐⭐⭐⭐
+                </div>
+
+                <h4>
+                    — Neha Singh
+                </h4>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTACT -->
+
+    <section id="contact">
+
+        <h2 class="section-title">
+            Plan Your Trip
+        </h2>
+
+        <p class="section-description">
+            Tell us where you want to go and our travel experts
+            will help you plan your perfect trip.
+        </p>
+
+
+        <div class="contact-container">
+
+            <div class="contact-info">
+
+                <h2>
+                    Let's Plan Your Adventure
+                </h2>
+
+                <p>
+                    📍 TravelX Office, Bhopal, Madhya Pradesh
+                </p>
+
+                <p>
+                    📞 +91 98765 43210
+                </p>
+
+                <p>
+                    📧 hello@travelx.com
+                </p>
+
+                <p>
+                    🕐 Monday - Saturday: 9:00 AM - 7:00 PM
+                </p>
+
+                <p>
+                    Our travel experts are ready to help you
+                    choose the perfect destination.
+                </p>
+
+            </div>
+
+
+            <form>
+
+                <input
+                    type="text"
+                    placeholder="Your Name"
+                    required
+                >
+
+                <input
+                    type="email"
+                    placeholder="Your Email"
+                    required
+                >
+
+                <input
+                    type="tel"
+                    placeholder="Phone Number"
+                >
+
+                <select>
+
+                    <option>
+                        Select Destination
+                    </option>
+
+                    <option>
+                        Paris
+                    </option>
+
+                    <option>
+                        Bali
+                    </option>
+
+                    <option>
+                        Dubai
+                    </option>
+
+                    <option>
+                        Tokyo
+                    </option>
+
+                    <option>
+                        Switzerland
+                    </option>
+
+                </select>
+
+                <textarea
+                    placeholder="Tell us about your trip..."
+                ></textarea>
+
+                <button type="submit">
+                    Send Enquiry
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-grid">
+
+            <div class="footer-column">
+
+                <h3>
+                    TravelX
+                </h3>
+
+                <p>
+                    Discover the world, experience new cultures
+                    and create memories that last forever.
+                </p>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Explore
+                </h3>
+
+                <a href="#destinations">
+                    Destinations
+                </a>
+
+                <a href="#packages">
+                    Packages
+                </a>
+
+                <a href="#gallery">
+                    Gallery
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Support
+                </h3>
+
+                <a href="#">
+                    Help Center
+                </a>
+
+                <a href="#">
+                    Booking Guide
+                </a>
+
+                <a href="#">
+                    Travel Insurance
+                </a>
+
+            </div>
+
+
+            <div class="footer-column">
+
+                <h3>
+                    Follow Us
+                </h3>
+
+                <a href="#">
+                    Instagram
+                </a>
+
+                <a href="#">
+                    Facebook
+                </a>
+
+                <a href="#">
+                    YouTube
+                </a>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 TravelX. All Rights Reserved.
+
+        </div>
+
+    </footer>
+
+</body>
+</html>
