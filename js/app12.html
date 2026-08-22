@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f4f6f8;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1150px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .top {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .card p {
+      font-size: 25px;
+      font-weight: bold;
+      margin-top: 8px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .controls input,
+    .controls select {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .product {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .product h2 {
+      margin-bottom: 10px;
+    }
+
+    .product p {
+      margin: 7px 0;
+      color: #666;
+    }
+
+    .price {
+      font-size: 20px;
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    button {
+      border: none;
+      padding: 9px 13px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .cart-btn {
+      background: #222;
+      color: white;
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .delete {
+      background: #e74c3c;
+      color: white;
+    }
+
+    .cart {
+      background: white;
+      padding: 25px;
+      margin-top: 30px;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .quantity button {
+      padding: 5px 10px;
+      margin: 0 5px;
+    }
+
+    .checkout {
+      width: 100%;
+      background: #27ae60;
+      color: white;
+      padding: 13px;
+      margin-top: 20px;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 25px;
+      color: #777;
+    }
+
+    @media(max-width: 800px) {
+      .top {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .products {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width: 500px) {
+      .products {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>🛒 Shopping Cart</h1>
+
+    <!-- Statistics -->
+
+    <div class="top">
+
+      <div class="card">
+        <h3>Products</h3>
+        <p id="totalProducts">0</p>
+      </div>
+
+      <div class="card">
+        <h3>Cart Items</h3>
+        <p id="cartItems">0</p>
+      </div>
+
+      <div class="card">
+        <h3>Cart Quantity</h3>
+        <p id="quantity">0</p>
+      </div>
+
+      <div class="card">
+        <h3>Total Price</h3>
+        <p id="totalPrice">₹0</p>
+      </div>
+
+    </div>
+
+
+    <!-- Search / Filter -->
+
+    <div class="controls">
+
+      <input
+        type="text"
+        id="search"
+        placeholder="Search product..."
+        oninput="displayProducts()"
+      >
+
+      <select
+        id="category"
+        onchange="displayProducts()"
+      >
+
+        <option value="All">All Categories</option>
+        <option value="Mobile">Mobile</option>
+        <option value="Laptop">Laptop</option>
+        <option value="Headphones">Headphones</option>
+        <option value="Watch">Watch</option>
+
+      </select>
+
+      <select
+        id="sort"
+        onchange="displayProducts()"
+      >
+
+        <option value="none">Sort Products</option>
+
+        <option value="low">
+          Price Low → High
+        </option>
+
+        <option value="high">
+          Price High → Low
+        </option>
+
+        <option value="rating">
+          Rating High → Low
+        </option>
+
+        <option value="name">
+          Name A → Z
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- Products -->
+
+    <div class="products" id="products"></div>
+
+
+    <!-- Cart -->
+
+    <div class="cart">
+
+      <h2>🛍️ My Cart</h2>
+
+      <div id="cartList"></div>
+
+      <button
+        class="checkout"
+        onclick="checkout()">
+
+        Checkout
+
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    let products = [
+
+      {
+        id: 1,
+        name: "iPhone 15",
+        category: "Mobile",
+        price: 70000,
+        rating: 4.7
+      },
+
+      {
+        id: 2,
+        name: "Samsung S24",
+        category: "Mobile",
+        price: 65000,
+        rating: 4.6
+      },
+
+      {
+        id: 3,
+        name: "HP Pavilion",
+        category: "Laptop",
+        price: 60000,
+        rating: 4.4
+      },
+
+      {
+        id: 4,
+        name: "Dell Inspiron",
+        category: "Laptop",
+        price: 55000,
+        rating: 4.3
+      },
+
+      {
+        id: 5,
+        name: "Sony Headphones",
+        category: "Headphones",
+        price: 8000,
+        rating: 4.5
+      },
+
+      {
+        id: 6,
+        name: "Boat Headphones",
+        category: "Headphones",
+        price: 2500,
+        rating: 4.1
+      },
+
+      {
+        id: 7,
+        name: "Apple Watch",
+        category: "Watch",
+        price: 35000,
+        rating: 4.8
+      },
+
+      {
+        id: 8,
+        name: "Noise Smart Watch",
+        category: "Watch",
+        price: 4000,
+        rating: 4.0
+      }
+
+    ];
+
+
+    let cart =
+      JSON.parse(localStorage.getItem("cart")) || [];
+
+
+    function saveCart() {
+
+      localStorage.setItem(
+        "cart",
+        JSON.stringify(cart)
+      );
+
+    }
+
+
+    // DISPLAY PRODUCTS
+
+    function displayProducts() {
+
+      let container =
+        document.getElementById("products");
+
+      let search =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+      let category =
+        document.getElementById("category")
+        .value;
+
+      let sort =
+        document.getElementById("sort")
+        .value;
+
+
+      let result =
+        products.filter(function(product) {
+
+          let matchName =
+            product.name
+              .toLowerCase()
+              .includes(search);
+
+          let matchCategory =
+            category === "All" ||
+            product.category === category;
+
+          return matchName && matchCategory;
+
+        });
+
+
+      // SORT
+
+      if (sort === "low") {
+
+        result.sort(function(a, b) {
+
+          return a.price - b.price;
+
+        });
+
+      }
+
+
+      if (sort === "high") {
+
+        result.sort(function(a, b) {
+
+          return b.price - a.price;
+
+        });
+
+      }
+
+
+      if (sort === "rating") {
+
+        result.sort(function(a, b) {
+
+          return b.rating - a.rating;
+
+        });
+
+      }
+
+
+      if (sort === "name") {
+
+        result.sort(function(a, b) {
+
+          return a.name.localeCompare(b.name);
+
+        });
+
+      }
+
+
+      container.innerHTML = "";
+
+
+      result.forEach(function(product) {
+
+        let div =
+          document.createElement("div");
+
+        div.className = "product";
+
+
+        div.innerHTML = `
+
+          <h2>${product.name}</h2>
+
+          <p>
+            Category: ${product.category}
+          </p>
+
+          <p>
+            ⭐ Rating: ${product.rating}
+          </p>
+
+          <div class="price">
+            ₹${product.price}
+          </div>
+
+          <button
+            class="cart-btn"
+            onclick="addToCart(${product.id})">
+
+            Add To Cart
+
+          </button>
+
+        `;
+
+
+        container.appendChild(div);
+
+      });
+
+
+      updateStats();
+
+    }
+
+
+    // ADD TO CART
+
+    function addToCart(id) {
+
+      let product =
+        products.find(function(product) {
+
+          return product.id === id;
+
+        });
+
+
+      let existing =
+        cart.find(function(item) {
+
+          return item.id === id;
+
+        });
+
+
+      if (existing) {
+
+        existing.quantity++;
+
+      } else {
+
+        cart.push({
+
+          id: product.id,
+
+          name: product.name,
+
+          price: product.price,
+
+          quantity: 1
+
+        });
+
+      }
+
+
+      saveCart();
+
+      displayCart();
+
+    }
+
+
+    // INCREASE
+
+    function increase(id) {
+
+      let item =
+        cart.find(function(item) {
+
+          return item.id === id;
+
+        });
+
+
+      item.quantity++;
+
+      saveCart();
+
+      displayCart();
+
+    }
+
+
+    // DECREASE
+
+    function decrease(id) {
+
+      let item =
+        cart.find(function(item) {
+
+          return item.id === id;
+
+        });
+
+
+      if (item.quantity > 1) {
+
+        item.quantity--;
+
+      } else {
+
+        cart =
+          cart.filter(function(item) {
+
+            return item.id !== id;
+
+          });
+
+      }
+
+
+      saveCart();
+
+      displayCart();
+
+    }
+
+
+    // DELETE
+
+    function removeFromCart(id) {
+
+      cart =
+        cart.filter(function(item) {
+
+          return item.id !== id;
+
+        });
+
+
+      saveCart();
+
+      displayCart();
+
+    }
+
+
+    // DISPLAY CART
+
+    function displayCart() {
+
+      let container =
+        document.getElementById("cartList");
+
+
+      container.innerHTML = "";
+
+
+      if (cart.length === 0) {
+
+        container.innerHTML = `
+          <div class="empty">
+            Your cart is empty
+          </div>
+        `;
+
+        updateStats();
+
+        return;
+
+      }
+
+
+      cart.forEach(function(item) {
+
+        let div =
+          document.createElement("div");
+
+        div.className = "cart-item";
+
+
+        div.innerHTML = `
+
+          <div>
+
+            <h3>
+              ${item.name}
+            </h3>
+
+            <p>
+              ₹${item.price} × ${item.quantity}
+            </p>
+
+          </div>
+
+
+          <div class="quantity">
+
+            <button
+              onclick="decrease(${item.id})">
+              -
+            </button>
+
+            <strong>
+              ${item.quantity}
+            </strong>
+
+            <button
+              onclick="increase(${item.id})">
+              +
+            </button>
+
+            <button
+              class="delete"
+              onclick="removeFromCart(${item.id})">
+
+              Remove
+
+            </button>
+
+          </div>
+
+        `;
+
+
+        container.appendChild(div);
+
+      });
+
+
+      updateStats();
+
+    }
+
+
+    // UPDATE STATISTICS
+
+    function updateStats() {
+
+      let totalProducts =
+        products.length;
+
+
+      let cartItems =
+        cart.length;
+
+
+      let totalQuantity =
+        cart.reduce(function(sum, item) {
+
+          return sum + item.quantity;
+
+        }, 0);
+
+
+      let totalPrice =
+        cart.reduce(function(sum, item) {
+
+          return sum +
+            item.price * item.quantity;
+
+        }, 0);
+
+
+      document.getElementById("totalProducts")
+        .innerText = totalProducts;
+
+
+      document.getElementById("cartItems")
+        .innerText = cartItems;
+
+
+      document.getElementById("quantity")
+        .innerText = totalQuantity;
+
+
+      document.getElementById("totalPrice")
+        .innerText = "₹" + totalPrice;
+
+    }
+
+
+    // CHECKOUT
+
+    function checkout() {
+
+      if (cart.length === 0) {
+
+        alert("Your cart is empty!");
+
+        return;
+
+      }
+
+
+      let total =
+        cart.reduce(function(sum, item) {
+
+          return sum +
+            item.price * item.quantity;
+
+        }, 0);
+
+
+      alert(
+        "Order placed successfully!\n\n" +
+        "Total Amount: ₹" + total
+      );
+
+
+      cart = [];
+
+      saveCart();
+
+      displayCart();
+
+    }
+
+
+    displayProducts();
+
+    displayCart();
+
+  </script>
+
+</body>
+</html>
