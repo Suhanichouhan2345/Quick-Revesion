@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bank Management System</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f2f5f8;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    .card h3 {
+      margin-bottom: 10px;
+    }
+
+    .card p {
+      font-size: 24px;
+      font-weight: bold;
+    }
+
+    .form-box,
+    .accounts-box,
+    .history-box {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    }
+
+    input,
+    select {
+      width: 100%;
+      padding: 12px;
+      margin: 7px 0;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+    }
+
+    button {
+      padding: 9px 13px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .primary {
+      width: 100%;
+      background: #222;
+      color: white;
+      padding: 13px;
+      margin-top: 8px;
+    }
+
+    .accounts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .account {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 18px;
+    }
+
+    .account h2 {
+      margin-bottom: 10px;
+    }
+
+    .account p {
+      margin: 7px 0;
+      color: #666;
+    }
+
+    .balance {
+      font-size: 21px;
+      font-weight: bold;
+      margin: 12px 0;
+    }
+
+    .deposit {
+      background: #27ae60;
+      color: white;
+    }
+
+    .withdraw {
+      background: #e67e22;
+      color: white;
+    }
+
+    .delete {
+      background: #e74c3c;
+      color: white;
+      margin-left: 5px;
+    }
+
+    .search-box {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 12px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background: #222;
+      color: white;
+    }
+
+    .credit {
+      color: green;
+      font-weight: bold;
+    }
+
+    .debit {
+      color: red;
+      font-weight: bold;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 25px;
+      color: #777;
+    }
+
+    @media(max-width: 800px) {
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .accounts {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media(max-width: 550px) {
+      .stats,
+      .accounts {
+        grid-template-columns: 1fr;
+      }
+
+      .search-box {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>🏦 Bank Management System</h1>
+
+
+    <!-- Statistics -->
+
+    <div class="stats">
+
+      <div class="card">
+        <h3>Total Accounts</h3>
+        <p id="totalAccounts">0</p>
+      </div>
+
+      <div class="card">
+        <h3>Total Balance</h3>
+        <p id="totalBalance">₹0</p>
+      </div>
+
+      <div class="card">
+        <h3>Total Deposits</h3>
+        <p id="totalDeposits">₹0</p>
+      </div>
+
+      <div class="card">
+        <h3>Total Withdrawals</h3>
+        <p id="totalWithdrawals">₹0</p>
+      </div>
+
+    </div>
+
+
+    <!-- Create Account -->
+
+    <div class="form-box">
+
+      <h2>Create Bank Account</h2>
+
+      <input
+        type="text"
+        id="name"
+        placeholder="Customer name"
+      >
+
+      <input
+        type="number"
+        id="age"
+        placeholder="Age"
+      >
+
+      <input
+        type="text"
+        id="city"
+        placeholder="City"
+      >
+
+      <select id="accountType">
+
+        <option value="Savings">
+          Savings
+        </option>
+
+        <option value="Current">
+          Current
+        </option>
+
+      </select>
+
+      <input
+        type="number"
+        id="initialBalance"
+        placeholder="Initial balance"
+      >
+
+      <button
+        class="primary"
+        onclick="createAccount()">
+
+        Create Account
+
+      </button>
+
+    </div>
+
+
+    <!-- Search -->
+
+    <div class="search-box">
+
+      <input
+        type="text"
+        id="search"
+        placeholder="Search customer..."
+        oninput="displayAccounts()"
+      >
+
+      <select
+        id="sort"
+        onchange="displayAccounts()">
+
+        <option value="none">
+          Sort Accounts
+        </option>
+
+        <option value="balanceHigh">
+          Balance High → Low
+        </option>
+
+        <option value="balanceLow">
+          Balance Low → High
+        </option>
+
+        <option value="name">
+          Name A → Z
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- Accounts -->
+
+    <div class="accounts-box">
+
+      <h2>Customer Accounts</h2>
+
+      <br>
+
+      <div
+        class="accounts"
+        id="accounts">
+      </div>
+
+    </div>
+
+
+    <!-- Transaction History -->
+
+    <div class="history-box">
+
+      <h2>Transaction History</h2>
+
+      <br>
+
+      <div id="history"></div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    let accounts =
+      JSON.parse(
+        localStorage.getItem("accounts")
+      ) || [
+
+        {
+          id: 1001,
+          name: "Rahul Sharma",
+          age: 22,
+          city: "Bhopal",
+          type: "Savings",
+          balance: 25000
+        },
+
+        {
+          id: 1002,
+          name: "Priya Singh",
+          age: 24,
+          city: "Indore",
+          type: "Current",
+          balance: 45000
+        },
+
+        {
+          id: 1003,
+          name: "Aman Verma",
+          age: 21,
+          city: "Gwalior",
+          type: "Savings",
+          balance: 18000
+        }
+
+      ];
+
+
+    let transactions =
+      JSON.parse(
+        localStorage.getItem("transactions")
+      ) || [];
+
+
+    function saveData() {
+
+      localStorage.setItem(
+        "accounts",
+        JSON.stringify(accounts)
+      );
+
+      localStorage.setItem(
+        "transactions",
+        JSON.stringify(transactions)
+      );
+
+    }
+
+
+    // CREATE ACCOUNT
+
+    function createAccount() {
+
+      let name =
+        document.getElementById("name")
+        .value
+        .trim();
+
+      let age =
+        Number(
+          document.getElementById("age").value
+        );
+
+      let city =
+        document.getElementById("city")
+        .value
+        .trim();
+
+      let type =
+        document.getElementById("accountType")
+        .value;
+
+      let balance =
+        Number(
+          document.getElementById("initialBalance")
+          .value
+        );
+
+
+      if (
+        name === "" ||
+        age < 18 ||
+        city === "" ||
+        balance < 0
+      ) {
+
+        alert("Please enter valid details");
+
+        return;
+
+      }
+
+
+      let account = {
+
+        id:
+          1000 +
+          Math.floor(
+            Math.random() * 9000
+          ),
+
+        name: name,
+
+        age: age,
+
+        city: city,
+
+        type: type,
+
+        balance: balance
+
+      };
+
+
+      accounts.push(account);
+
+
+      if (balance > 0) {
+
+        transactions.push({
+
+          id: Date.now(),
+
+          accountId: account.id,
+
+          name: account.name,
+
+          type: "Deposit",
+
+          amount: balance,
+
+          date:
+            new Date()
+            .toLocaleString()
+
+        });
+
+      }
+
+
+      saveData();
+
+      clearForm();
+
+      displayAccounts();
+
+      displayHistory();
+
+    }
+
+
+    // CLEAR FORM
+
+    function clearForm() {
+
+      document.getElementById("name")
+        .value = "";
+
+      document.getElementById("age")
+        .value = "";
+
+      document.getElementById("city")
+        .value = "";
+
+      document.getElementById("initialBalance")
+        .value = "";
+
+    }
+
+
+    // DEPOSIT
+
+    function deposit(id) {
+
+      let account =
+        accounts.find(function(account) {
+
+          return account.id === id;
+
+        });
+
+
+      let amount =
+        Number(
+          prompt(
+            "Enter deposit amount"
+          )
+        );
+
+
+      if (!amount || amount <= 0) {
+
+        alert("Invalid amount");
+
+        return;
+
+      }
+
+
+      account.balance += amount;
+
+
+      transactions.push({
+
+        id: Date.now(),
+
+        accountId: account.id,
+
+        name: account.name,
+
+        type: "Deposit",
+
+        amount: amount,
+
+        date:
+          new Date()
+          .toLocaleString()
+
+      });
+
+
+      saveData();
+
+      displayAccounts();
+
+      displayHistory();
+
+    }
+
+
+    // WITHDRAW
+
+    function withdraw(id) {
+
+      let account =
+        accounts.find(function(account) {
+
+          return account.id === id;
+
+        });
+
+
+      let amount =
+        Number(
+          prompt(
+            "Enter withdrawal amount"
+          )
+        );
+
+
+      if (!amount || amount <= 0) {
+
+        alert("Invalid amount");
+
+        return;
+
+      }
+
+
+      if (amount > account.balance) {
+
+        alert("Insufficient balance");
+
+        return;
+
+      }
+
+
+      account.balance -= amount;
+
+
+      transactions.push({
+
+        id: Date.now(),
+
+        accountId: account.id,
+
+        name: account.name,
+
+        type: "Withdrawal",
+
+        amount: amount,
+
+        date:
+          new Date()
+          .toLocaleString()
+
+      });
+
+
+      saveData();
+
+      displayAccounts();
+
+      displayHistory();
+
+    }
+
+
+    // DELETE ACCOUNT
+
+    function deleteAccount(id) {
+
+      let account =
+        accounts.find(function(account) {
+
+          return account.id === id;
+
+        });
+
+
+      let confirmDelete =
+        confirm(
+          `Delete account of ${account.name}?`
+        );
+
+
+      if (!confirmDelete) {
+
+        return;
+
+      }
+
+
+      accounts =
+        accounts.filter(function(account) {
+
+          return account.id !== id;
+
+        });
+
+
+      saveData();
+
+      displayAccounts();
+
+      displayHistory();
+
+    }
+
+
+    // DISPLAY ACCOUNTS
+
+    function displayAccounts() {
+
+      let container =
+        document.getElementById("accounts");
+
+
+      let search =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+
+      let sort =
+        document.getElementById("sort")
+        .value;
+
+
+      let result =
+        accounts.filter(function(account) {
+
+          return account.name
+            .toLowerCase()
+            .includes(search);
+
+        });
+
+
+      // SORT BY BALANCE
+
+      if (sort === "balanceHigh") {
+
+        result.sort(function(a, b) {
+
+          return b.balance - a.balance;
+
+        });
+
+      }
+
+
+      if (sort === "balanceLow") {
+
+        result.sort(function(a, b) {
+
+          return a.balance - b.balance;
+
+        });
+
+      }
+
+
+      // SORT BY NAME
+
+      if (sort === "name") {
+
+        result.sort(function(a, b) {
+
+          return a.name.localeCompare(
+            b.name
+          );
+
+        });
+
+      }
+
+
+      container.innerHTML = "";
+
+
+      if (result.length === 0) {
+
+        container.innerHTML = `
+          <div class="empty">
+            No accounts found
+          </div>
+        `;
+
+        updateStats();
+
+        return;
+
+      }
+
+
+      result.forEach(function(account) {
+
+        let div =
+          document.createElement("div");
+
+        div.className = "account";
+
+
+        div.innerHTML = `
+
+          <h2>
+            ${account.name}
+          </h2>
+
+          <p>
+            Account No: ${account.id}
+          </p>
+
+          <p>
+            Age: ${account.age}
+          </p>
+
+          <p>
+            City: ${account.city}
+          </p>
+
+          <p>
+            Type: ${account.type}
+          </p>
+
+          <div class="balance">
+            ₹${account.balance}
+          </div>
+
+          <button
+            class="deposit"
+            onclick="deposit(${account.id})">
+
+            Deposit
+
+          </button>
+
+          <button
+            class="withdraw"
+            onclick="withdraw(${account.id})">
+
+            Withdraw
+
+          </button>
+
+          <button
+            class="delete"
+            onclick="deleteAccount(${account.id})">
+
+            Delete
+
+          </button>
+
+        `;
+
+
+        container.appendChild(div);
+
+      });
+
+
+      updateStats();
+
+    }
+
+
+    // DISPLAY HISTORY
+
+    function displayHistory() {
+
+      let container =
+        document.getElementById("history");
+
+
+      container.innerHTML = "";
+
+
+      if (transactions.length === 0) {
+
+        container.innerHTML = `
+          <div class="empty">
+            No transactions yet
+          </div>
+        `;
+
+        return;
+
+      }
+
+
+      let table =
+        document.createElement("table");
+
+
+      table.innerHTML = `
+
+        <thead>
+
+          <tr>
+
+            <th>Customer</th>
+            <th>Account</th>
+            <th>Type</th>
+            <th>Amount</th>
+            <th>Date</th>
+
+          </tr>
+
+        </thead>
+
+        <tbody></tbody>
+
+      `;
+
+
+      let tbody =
+        table.querySelector("tbody");
+
+
+      transactions
+        .slice()
+        .reverse()
+        .forEach(function(transaction) {
+
+          let row =
+            document.createElement("tr");
+
+
+          row.innerHTML = `
+
+            <td>
+              ${transaction.name}
+            </td>
+
+            <td>
+              ${transaction.accountId}
+            </td>
+
+            <td class="${
+              transaction.type === "Deposit"
+                ? "credit"
+                : "debit"
+            }">
+
+              ${transaction.type}
+
+            </td>
+
+            <td>
+              ₹${transaction.amount}
+            </td>
+
+            <td>
+              ${transaction.date}
+            </td>
+
+          `;
+
+
+          tbody.appendChild(row);
+
+        });
+
+
+      container.appendChild(table);
+
+    }
+
+
+    // STATISTICS
+
+    function updateStats() {
+
+      let totalAccounts =
+        accounts.length;
+
+
+      let totalBalance =
+        accounts.reduce(
+          function(sum, account) {
+
+            return sum + account.balance;
+
+          },
+          0
+        );
+
+
+      let totalDeposits =
+        transactions
+        .filter(function(transaction) {
+
+          return transaction.type === "Deposit";
+
+        })
+        .reduce(function(sum, transaction) {
+
+          return sum + transaction.amount;
+
+        }, 0);
+
+
+      let totalWithdrawals =
+        transactions
+        .filter(function(transaction) {
+
+          return transaction.type === "Withdrawal";
+
+        })
+        .reduce(function(sum, transaction) {
+
+          return sum + transaction.amount;
+
+        }, 0);
+
+
+      document.getElementById("totalAccounts")
+        .innerText = totalAccounts;
+
+
+      document.getElementById("totalBalance")
+        .innerText =
+          "₹" + totalBalance;
+
+
+      document.getElementById("totalDeposits")
+        .innerText =
+          "₹" + totalDeposits;
+
+
+      document.getElementById("totalWithdrawals")
+        .innerText =
+          "₹" + totalWithdrawals;
+
+    }
+
+
+    displayAccounts();
+
+    displayHistory();
+
+  </script>
+
+</body>
+</html>
