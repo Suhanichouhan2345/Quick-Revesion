@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movie Management System</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f2f4f7;
+      padding: 30px;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .form-box,
+    .movies-box {
+      background: white;
+      padding: 25px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+    }
+
+    .form-box input,
+    .form-box select {
+      width: 100%;
+      padding: 12px;
+      margin: 7px 0;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+    }
+
+    #addMovie {
+      width: 100%;
+      margin-top: 10px;
+      padding: 13px;
+      background: #222;
+      color: white;
+      border: none;
+      border-radius: 7px;
+      cursor: pointer;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .controls input,
+    .controls select {
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
+    }
+
+    .movie-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .movie {
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 18px;
+      background: #fafafa;
+    }
+
+    .movie h2 {
+      margin-bottom: 10px;
+    }
+
+    .movie p {
+      margin: 7px 0;
+      color: #555;
+    }
+
+    .rating {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .actions {
+      margin-top: 15px;
+    }
+
+    .actions button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .edit {
+      background: #3498db;
+      color: white;
+    }
+
+    .delete {
+      background: #e74c3c;
+      color: white;
+      margin-left: 5px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .stat {
+      background: white;
+      padding: 20px;
+      text-align: center;
+      border-radius: 10px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    }
+
+    .stat h3 {
+      margin-bottom: 10px;
+    }
+
+    .stat p {
+      font-size: 25px;
+      font-weight: bold;
+    }
+
+    .empty {
+      text-align: center;
+      padding: 30px;
+      color: #777;
+    }
+
+    @media(max-width: 800px) {
+
+      .movie-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media(max-width: 500px) {
+
+      .movie-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <h1>🎬 Movie Management System</h1>
+
+
+    <!-- Statistics -->
+
+    <div class="stats">
+
+      <div class="stat">
+        <h3>Total Movies</h3>
+        <p id="totalMovies">0</p>
+      </div>
+
+      <div class="stat">
+        <h3>Average Rating</h3>
+        <p id="averageRating">0</p>
+      </div>
+
+      <div class="stat">
+        <h3>Highest Rating</h3>
+        <p id="highestRating">0</p>
+      </div>
+
+      <div class="stat">
+        <h3>Latest Movie</h3>
+        <p id="latestMovie">-</p>
+      </div>
+
+    </div>
+
+
+    <!-- Add Movie -->
+
+    <div class="form-box">
+
+      <h2>Add New Movie</h2>
+
+      <input
+        type="text"
+        id="title"
+        placeholder="Movie title"
+      >
+
+      <input
+        type="text"
+        id="language"
+        placeholder="Language"
+      >
+
+      <select id="genre">
+
+        <option value="Action">Action</option>
+        <option value="Comedy">Comedy</option>
+        <option value="Drama">Drama</option>
+        <option value="Horror">Horror</option>
+        <option value="Romance">Romance</option>
+        <option value="Sci-Fi">Sci-Fi</option>
+
+      </select>
+
+      <input
+        type="number"
+        id="rating"
+        placeholder="Rating 0-10"
+        min="0"
+        max="10"
+        step="0.1"
+      >
+
+      <input
+        type="number"
+        id="year"
+        placeholder="Release Year"
+      >
+
+      <button id="addMovie" onclick="addMovie()">
+        Add Movie
+      </button>
+
+    </div>
+
+
+    <!-- Search and Filter -->
+
+    <div class="controls">
+
+      <input
+        type="text"
+        id="search"
+        placeholder="Search movie..."
+        oninput="displayMovies()"
+      >
+
+      <select
+        id="genreFilter"
+        onchange="displayMovies()"
+      >
+
+        <option value="All">All Genres</option>
+        <option value="Action">Action</option>
+        <option value="Comedy">Comedy</option>
+        <option value="Drama">Drama</option>
+        <option value="Horror">Horror</option>
+        <option value="Romance">Romance</option>
+        <option value="Sci-Fi">Sci-Fi</option>
+
+      </select>
+
+      <select
+        id="sort"
+        onchange="displayMovies()"
+      >
+
+        <option value="none">Sort Movies</option>
+        <option value="ratingHigh">
+          Rating High → Low
+        </option>
+
+        <option value="ratingLow">
+          Rating Low → High
+        </option>
+
+        <option value="yearNew">
+          Newest → Oldest
+        </option>
+
+        <option value="yearOld">
+          Oldest → Newest
+        </option>
+
+        <option value="title">
+          Title A → Z
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- Movies -->
+
+    <div class="movies-box">
+
+      <h2>Movies</h2>
+
+      <br>
+
+      <div
+        class="movie-grid"
+        id="movieList">
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <script>
+
+    let movies =
+      JSON.parse(localStorage.getItem("movies")) || [
+
+        {
+          id: 1,
+          title: "Inception",
+          language: "English",
+          genre: "Sci-Fi",
+          rating: 8.8,
+          year: 2010
+        },
+
+        {
+          id: 2,
+          title: "3 Idiots",
+          language: "Hindi",
+          genre: "Drama",
+          rating: 8.4,
+          year: 2009
+        },
+
+        {
+          id: 3,
+          title: "Avengers Endgame",
+          language: "English",
+          genre: "Action",
+          rating: 8.4,
+          year: 2019
+        },
+
+        {
+          id: 4,
+          title: "Dangal",
+          language: "Hindi",
+          genre: "Drama",
+          rating: 8.3,
+          year: 2016
+        },
+
+        {
+          id: 5,
+          title: "The Conjuring",
+          language: "English",
+          genre: "Horror",
+          rating: 7.5,
+          year: 2013
+        }
+
+      ];
+
+
+    function saveMovies() {
+
+      localStorage.setItem(
+        "movies",
+        JSON.stringify(movies)
+      );
+
+    }
+
+
+    function addMovie() {
+
+      let title =
+        document.getElementById("title")
+        .value
+        .trim();
+
+      let language =
+        document.getElementById("language")
+        .value
+        .trim();
+
+      let genre =
+        document.getElementById("genre")
+        .value;
+
+      let rating =
+        Number(
+          document.getElementById("rating").value
+        );
+
+      let year =
+        Number(
+          document.getElementById("year").value
+        );
+
+
+      if (
+        title === "" ||
+        language === "" ||
+        rating < 0 ||
+        rating > 10 ||
+        year < 1900
+      ) {
+
+        alert("Please enter valid movie details");
+
+        return;
+
+      }
+
+
+      let movie = {
+
+        id: Date.now(),
+
+        title: title,
+
+        language: language,
+
+        genre: genre,
+
+        rating: rating,
+
+        year: year
+
+      };
+
+
+      movies.push(movie);
+
+      saveMovies();
+
+      clearForm();
+
+      displayMovies();
+
+    }
+
+
+    function clearForm() {
+
+      document.getElementById("title").value = "";
+
+      document.getElementById("language").value = "";
+
+      document.getElementById("rating").value = "";
+
+      document.getElementById("year").value = "";
+
+    }
+
+
+    function deleteMovie(id) {
+
+      movies =
+        movies.filter(function(movie) {
+
+          return movie.id !== id;
+
+        });
+
+
+      saveMovies();
+
+      displayMovies();
+
+    }
+
+
+    function editMovie(id) {
+
+      let movie =
+        movies.find(function(movie) {
+
+          return movie.id === id;
+
+        });
+
+
+      let newTitle =
+        prompt(
+          "Enter new movie title",
+          movie.title
+        );
+
+
+      let newRating =
+        prompt(
+          "Enter new rating",
+          movie.rating
+        );
+
+
+      if (
+        newTitle !== null &&
+        newRating !== null &&
+        newTitle.trim() !== "" &&
+        Number(newRating) >= 0 &&
+        Number(newRating) <= 10
+      ) {
+
+        movie.title =
+          newTitle.trim();
+
+        movie.rating =
+          Number(newRating);
+
+
+        saveMovies();
+
+        displayMovies();
+
+      }
+
+    }
+
+
+    function displayMovies() {
+
+      let list =
+        document.getElementById("movieList");
+
+
+      let search =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+
+      let genre =
+        document.getElementById("genreFilter")
+        .value;
+
+
+      let sort =
+        document.getElementById("sort")
+        .value;
+
+
+      let result =
+        movies.filter(function(movie) {
+
+          let matchSearch =
+            movie.title
+              .toLowerCase()
+              .includes(search);
+
+
+          let matchGenre =
+            genre === "All" ||
+            movie.genre === genre;
+
+
+          return matchSearch && matchGenre;
+
+        });
+
+
+      // SORT BY RATING
+
+      if (sort === "ratingHigh") {
+
+        result.sort(function(a, b) {
+
+          return b.rating - a.rating;
+
+        });
+
+      }
+
+
+      if (sort === "ratingLow") {
+
+        result.sort(function(a, b) {
+
+          return a.rating - b.rating;
+
+        });
+
+      }
+
+
+      // SORT BY YEAR
+
+      if (sort === "yearNew") {
+
+        result.sort(function(a, b) {
+
+          return b.year - a.year;
+
+        });
+
+      }
+
+
+      if (sort === "yearOld") {
+
+        result.sort(function(a, b) {
+
+          return a.year - b.year;
+
+        });
+
+      }
+
+
+      // SORT BY TITLE
+
+      if (sort === "title") {
+
+        result.sort(function(a, b) {
+
+          return a.title.localeCompare(b.title);
+
+        });
+
+      }
+
+
+      list.innerHTML = "";
+
+
+      if (result.length === 0) {
+
+        list.innerHTML = `
+          <div class="empty">
+            No movies found
+          </div>
+        `;
+
+        updateStats();
+
+        return;
+
+      }
+
+
+      result.forEach(function(movie) {
+
+        let card =
+          document.createElement("div");
+
+        card.className = "movie";
+
+
+        card.innerHTML = `
+
+          <h2>${movie.title}</h2>
+
+          <p>
+            🎭 Genre: ${movie.genre}
+          </p>
+
+          <p>
+            🌐 Language: ${movie.language}
+          </p>
+
+          <p>
+            📅 Release Year: ${movie.year}
+          </p>
+
+          <p class="rating">
+            ⭐ Rating: ${movie.rating}/10
+          </p>
+
+          <div class="actions">
+
+            <button
+              class="edit"
+              onclick="editMovie(${movie.id})">
+              Edit
+            </button>
+
+            <button
+              class="delete"
+              onclick="deleteMovie(${movie.id})">
+              Delete
+            </button>
+
+          </div>
+
+        `;
+
+
+        list.appendChild(card);
+
+      });
+
+
+      updateStats();
+
+    }
+
+
+    function updateStats() {
+
+      let total =
+        movies.length;
+
+
+      let totalRating =
+        movies.reduce(function(sum, movie) {
+
+          return sum + movie.rating;
+
+        }, 0);
+
+
+      let average =
+        total === 0
+          ? 0
+          : (totalRating / total).toFixed(1);
+
+
+      let highest =
+        total === 0
+          ? 0
+          : Math.max(
+              ...movies.map(function(movie) {
+                return movie.rating;
+              })
+            );
+
+
+      let latestMovie = "-";
+
+
+      if (movies.length > 0) {
+
+        let latest =
+          movies.reduce(function(a, b) {
+
+            return a.year > b.year ? a : b;
+
+          });
+
+
+        latestMovie =
+          latest.title;
+
+      }
+
+
+      document.getElementById("totalMovies")
+        .innerText = total;
+
+
+      document.getElementById("averageRating")
+        .innerText = average;
+
+
+      document.getElementById("highestRating")
+        .innerText = highest;
+
+
+      document.getElementById("latestMovie")
+        .innerText = latestMovie;
+
+    }
+
+
+    displayMovies();
+
+  </script>
+
+</body>
+</html>
