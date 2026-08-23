@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Foodie Restaurant</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #fafafa;
+            color: #222;
+        }
+
+        header {
+            background: #222;
+            color: white;
+            padding: 20px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+        }
+
+        nav a:hover {
+            text-decoration: underline;
+        }
+
+        .hero {
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 60px 7%;
+            background: #eee;
+        }
+
+        .hero-text {
+            max-width: 550px;
+        }
+
+        .hero-text h1 {
+            font-size: 55px;
+            margin-bottom: 20px;
+        }
+
+        .hero-text p {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #222;
+            color: white;
+            padding: 14px 28px;
+            text-decoration: none;
+            border-radius: 6px;
+        }
+
+        .hero-image {
+            width: 380px;
+            height: 380px;
+            background: #ccc;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 100px;
+        }
+
+        .section {
+            padding: 60px 7%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .food-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .food-image {
+            height: 180px;
+            background: #ddd;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            margin-bottom: 20px;
+        }
+
+        .food-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .food-card p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .about {
+            background: #eee;
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-box {
+            flex: 1;
+        }
+
+        .about-box h2 {
+            font-size: 35px;
+            margin-bottom: 20px;
+        }
+
+        .about-box p {
+            line-height: 1.8;
+            color: #555;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            background: white;
+            padding: 25px;
+            text-align: center;
+            border-radius: 10px;
+        }
+
+        .feature h3 {
+            margin: 10px 0;
+        }
+
+        .contact {
+            text-align: center;
+        }
+
+        .contact p {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        footer {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        footer p {
+            margin: 5px;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                gap: 40px;
+            }
+
+            .menu {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .about {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 8px;
+            }
+
+            .hero-text h1 {
+                font-size: 40px;
+            }
+
+            .hero-image {
+                width: 250px;
+                height: 250px;
+                font-size: 70px;
+            }
+
+            .menu {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+
+    <div class="logo">
+        🍴 Foodie
+    </div>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#menu">Menu</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+    </nav>
+
+</header>
+
+
+<section class="hero" id="home">
+
+    <div class="hero-text">
+
+        <h1>Fresh Food, Great Taste!</h1>
+
+        <p>
+            Welcome to Foodie Restaurant. Enjoy delicious,
+            fresh and high-quality food prepared specially
+            for you by our expert chefs.
+        </p>
+
+        <a href="#menu" class="btn">
+            Explore Menu
+        </a>
+
+    </div>
+
+    <div class="hero-image">
+        🍕
+    </div>
+
+</section>
+
+
+<section class="section" id="menu">
+
+    <div class="section-title">
+
+        <h2>Our Popular Menu</h2>
+
+        <p>
+            Try some of our most loved dishes.
+        </p>
+
+    </div>
+
+
+    <div class="menu">
+
+        <div class="food-card">
+
+            <div class="food-image">
+                🍕
+            </div>
+
+            <h3>Cheese Pizza</h3>
+
+            <p>
+                Delicious pizza topped with
+                fresh cheese and vegetables.
+            </p>
+
+            <div class="price">
+                ₹299
+            </div>
+
+        </div>
+
+
+        <div class="food-card">
+
+            <div class="food-image">
+                🍔
+            </div>
+
+            <h3>Classic Burger</h3>
+
+            <p>
+                Juicy burger with fresh vegetables
+                and special sauce.
+            </p>
+
+            <div class="price">
+                ₹199
+            </div>
+
+        </div>
+
+
+        <div class="food-card">
+
+            <div class="food-image">
+                🍝
+            </div>
+
+            <h3>Italian Pasta</h3>
+
+            <p>
+                Creamy pasta prepared with
+                authentic Italian flavors.
+            </p>
+
+            <div class="price">
+                ₹249
+            </div>
+
+        </div>
+
+
+        <div class="food-card">
+
+            <div class="food-image">
+                🌮
+            </div>
+
+            <h3>Mexican Taco</h3>
+
+            <p>
+                Crispy tacos filled with fresh
+                vegetables and spicy sauce.
+            </p>
+
+            <div class="price">
+                ₹179
+            </div>
+
+        </div>
+
+
+        <div class="food-card">
+
+            <div class="food-image">
+                🍜
+            </div>
+
+            <h3>Veg Noodles</h3>
+
+            <p>
+                Delicious noodles with fresh
+                vegetables and special spices.
+            </p>
+
+            <div class="price">
+                ₹159
+            </div>
+
+        </div>
+
+
+        <div class="food-card">
+
+            <div class="food-image">
+                🍰
+            </div>
+
+            <h3>Chocolate Cake</h3>
+
+            <p>
+                Soft and creamy chocolate cake
+                perfect for dessert lovers.
+            </p>
+
+            <div class="price">
+                ₹149
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section about" id="about">
+
+    <div class="about-box">
+
+        <h2>About Foodie</h2>
+
+        <p>
+            Foodie Restaurant was created with one simple
+            goal — to serve delicious food at affordable
+            prices. Our chefs use fresh ingredients and
+            prepare every dish with love and care.
+        </p>
+
+    </div>
+
+
+    <div class="about-box">
+
+        <div class="features">
+
+            <div class="feature">
+                <h2>🍅</h2>
+                <h3>Fresh Ingredients</h3>
+                <p>We use fresh ingredients every day.</p>
+            </div>
+
+            <div class="feature">
+                <h2>👨‍🍳</h2>
+                <h3>Expert Chefs</h3>
+                <p>Experienced chefs prepare your food.</p>
+            </div>
+
+            <div class="feature">
+                <h2>🚀</h2>
+                <h3>Fast Delivery</h3>
+                <p>Quick and reliable food delivery.</p>
+            </div>
+
+            <div class="feature">
+                <h2>💰</h2>
+                <h3>Affordable Price</h3>
+                <p>Great food at reasonable prices.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section class="section contact" id="contact">
+
+    <div class="section-title">
+
+        <h2>Contact Us</h2>
+
+        <p>
+            Have any questions? Feel free to contact us.
+        </p>
+
+    </div>
+
+    <p>📍 Bhopal, Madhya Pradesh</p>
+    <p>📞 +91 98765 43210</p>
+    <p>📧 foodie@example.com</p>
+
+</section>
+
+
+<footer>
+
+    <p>© 2026 Foodie Restaurant</p>
+
+    <p>Made with ❤️ using HTML & CSS</p>
+
+</footer>
+
+</body>
+</html>
