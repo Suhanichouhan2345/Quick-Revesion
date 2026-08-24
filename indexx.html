@@ -1,0 +1,376 @@
+// ============================================
+// 💰 EXPENSE TRACKER - JavaScript Project
+// ============================================
+
+let expenses = [
+    {
+        id: 1,
+        title: "Grocery Shopping",
+        category: "Food",
+        amount: 1200,
+        date: "2026-08-20"
+    },
+    {
+        id: 2,
+        title: "Internet Bill",
+        category: "Bills",
+        amount: 799,
+        date: "2026-08-21"
+    },
+    {
+        id: 3,
+        title: "Movie Ticket",
+        category: "Entertainment",
+        amount: 500,
+        date: "2026-08-22"
+    },
+    {
+        id: 4,
+        title: "Bus Pass",
+        category: "Transport",
+        amount: 600,
+        date: "2026-08-23"
+    }
+];
+
+// ============================================
+// ADD EXPENSE
+// ============================================
+
+function addExpense(title, category, amount, date) {
+
+    const newExpense = {
+        id: expenses.length + 1,
+        title: title,
+        category: category,
+        amount: Number(amount),
+        date: date
+    };
+
+    expenses.push(newExpense);
+
+    console.log("✅ Expense Added Successfully!");
+    console.log(newExpense);
+}
+
+// ============================================
+// DISPLAY ALL EXPENSES
+// ============================================
+
+function showExpenses() {
+
+    console.log("\n========== ALL EXPENSES ==========");
+
+    expenses.forEach((expense) => {
+
+        console.log(
+            `ID: ${expense.id} | ` +
+            `Title: ${expense.title} | ` +
+            `Category: ${expense.category} | ` +
+            `Amount: ₹${expense.amount} | ` +
+            `Date: ${expense.date}`
+        );
+    });
+}
+
+// ============================================
+// FIND EXPENSE BY ID
+// ============================================
+
+function findExpense(id) {
+
+    const expense = expenses.find((item) => {
+        return item.id === Number(id);
+    });
+
+    if (expense) {
+        console.log("\n🔎 Expense Found:");
+        console.log(expense);
+    } else {
+        console.log("\n❌ Expense Not Found");
+    }
+}
+
+// ============================================
+// DELETE EXPENSE
+// ============================================
+
+function deleteExpense(id) {
+
+    const oldLength = expenses.length;
+
+    expenses = expenses.filter((expense) => {
+        return expense.id !== Number(id);
+    });
+
+    if (expenses.length < oldLength) {
+        console.log("🗑️ Expense Deleted Successfully!");
+    } else {
+        console.log("❌ Expense Not Found");
+    }
+}
+
+// ============================================
+// UPDATE EXPENSE
+// ============================================
+
+function updateExpense(id, newAmount) {
+
+    const expense = expenses.find((item) => {
+        return item.id === Number(id);
+    });
+
+    if (expense) {
+
+        expense.amount = Number(newAmount);
+
+        console.log("✏️ Expense Updated Successfully!");
+        console.log(expense);
+
+    } else {
+        console.log("❌ Expense Not Found");
+    }
+}
+
+// ============================================
+// FILTER BY CATEGORY
+// ============================================
+
+function filterByCategory(category) {
+
+    const result = expenses.filter((expense) => {
+        return expense.category.toLowerCase() ===
+            category.toLowerCase();
+    });
+
+    console.log(`\n========== ${category.toUpperCase()} ==========`);
+
+    if (result.length === 0) {
+        console.log("No expenses found.");
+        return;
+    }
+
+    result.forEach((expense) => {
+        console.log(
+            `${expense.title} → ₹${expense.amount}`
+        );
+    });
+}
+
+// ============================================
+// TOTAL EXPENSE
+// ============================================
+
+function calculateTotal() {
+
+    const total = expenses.reduce((sum, expense) => {
+        return sum + expense.amount;
+    }, 0);
+
+    console.log(`\n💰 Total Expense: ₹${total}`);
+
+    return total;
+}
+
+// ============================================
+// HIGHEST EXPENSE
+// ============================================
+
+function highestExpense() {
+
+    if (expenses.length === 0) {
+        console.log("No expenses available.");
+        return;
+    }
+
+    const highest = expenses.reduce((max, expense) => {
+
+        return expense.amount > max.amount
+            ? expense
+            : max;
+
+    });
+
+    console.log("\n🔥 Highest Expense:");
+    console.log(highest);
+}
+
+// ============================================
+// LOWEST EXPENSE
+// ============================================
+
+function lowestExpense() {
+
+    if (expenses.length === 0) {
+        console.log("No expenses available.");
+        return;
+    }
+
+    const lowest = expenses.reduce((min, expense) => {
+
+        return expense.amount < min.amount
+            ? expense
+            : min;
+
+    });
+
+    console.log("\n📉 Lowest Expense:");
+    console.log(lowest);
+}
+
+// ============================================
+// SORT EXPENSES - LOW TO HIGH
+// ============================================
+
+function sortLowToHigh() {
+
+    const result = [...expenses].sort((a, b) => {
+        return a.amount - b.amount;
+    });
+
+    console.log("\n========== LOW TO HIGH ==========");
+
+    result.forEach((expense) => {
+        console.log(
+            `${expense.title} → ₹${expense.amount}`
+        );
+    });
+}
+
+// ============================================
+// SORT EXPENSES - HIGH TO LOW
+// ============================================
+
+function sortHighToLow() {
+
+    const result = [...expenses].sort((a, b) => {
+        return b.amount - a.amount;
+    });
+
+    console.log("\n========== HIGH TO LOW ==========");
+
+    result.forEach((expense) => {
+        console.log(
+            `${expense.title} → ₹${expense.amount}`
+        );
+    });
+}
+
+// ============================================
+// CATEGORY SUMMARY
+// ============================================
+
+function categorySummary() {
+
+    const summary = expenses.reduce((result, expense) => {
+
+        if (!result[expense.category]) {
+            result[expense.category] = 0;
+        }
+
+        result[expense.category] += expense.amount;
+
+        return result;
+
+    }, {});
+
+    console.log("\n========== CATEGORY SUMMARY ==========");
+
+    Object.entries(summary).forEach(([category, amount]) => {
+
+        console.log(`${category}: ₹${amount}`);
+
+    });
+}
+
+// ============================================
+// AVERAGE EXPENSE
+// ============================================
+
+function averageExpense() {
+
+    if (expenses.length === 0) {
+        console.log("No expenses available.");
+        return;
+    }
+
+    const total = expenses.reduce((sum, expense) => {
+        return sum + expense.amount;
+    }, 0);
+
+    const average = total / expenses.length;
+
+    console.log(
+        `\n📊 Average Expense: ₹${average.toFixed(2)}`
+    );
+}
+
+// ============================================
+// SEARCH EXPENSE
+// ============================================
+
+function searchExpense(keyword) {
+
+    const result = expenses.filter((expense) => {
+
+        return expense.title
+            .toLowerCase()
+            .includes(keyword.toLowerCase());
+
+    });
+
+    console.log(`\n🔍 Search Result for "${keyword}"`);
+
+    if (result.length === 0) {
+        console.log("No matching expense found.");
+        return;
+    }
+
+    result.forEach((expense) => {
+
+        console.log(
+            `${expense.title} → ₹${expense.amount}`
+        );
+
+    });
+}
+
+// ============================================
+// TESTING ALL FUNCTIONS
+// ============================================
+
+showExpenses();
+
+addExpense(
+    "Coffee",
+    "Food",
+    250,
+    "2026-08-24"
+);
+
+calculateTotal();
+
+findExpense(2);
+
+updateExpense(1, 1500);
+
+deleteExpense(3);
+
+filterByCategory("Food");
+
+highestExpense();
+
+lowestExpense();
+
+sortLowToHigh();
+
+sortHighToLow();
+
+categorySummary();
+
+averageExpense();
+
+searchExpense("coffee");
+
+console.log("\n========== FINAL DATA ==========");
+console.log(expenses);
