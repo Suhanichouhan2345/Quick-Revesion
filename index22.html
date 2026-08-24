@@ -1,0 +1,363 @@
+// ==========================================
+// 🎓 STUDENT MANAGEMENT SYSTEM
+// ==========================================
+
+let students = [
+    {
+        id: 1,
+        name: "Rahul",
+        age: 20,
+        course: "JavaScript",
+        marks: 85,
+        city: "Bhopal"
+    },
+    {
+        id: 2,
+        name: "Priya",
+        age: 21,
+        course: "Java",
+        marks: 92,
+        city: "Indore"
+    },
+    {
+        id: 3,
+        name: "Aman",
+        age: 19,
+        course: "Python",
+        marks: 76,
+        city: "Gwalior"
+    },
+    {
+        id: 4,
+        name: "Neha",
+        age: 22,
+        course: "JavaScript",
+        marks: 88,
+        city: "Bhopal"
+    }
+];
+
+// ==========================================
+// SHOW ALL STUDENTS
+// ==========================================
+
+function showStudents() {
+
+    console.log("\n===== ALL STUDENTS =====");
+
+    students.forEach((student) => {
+
+        console.log(
+            `ID: ${student.id} | ` +
+            `Name: ${student.name} | ` +
+            `Course: ${student.course} | ` +
+            `Marks: ${student.marks} | ` +
+            `City: ${student.city}`
+        );
+
+    });
+}
+
+// ==========================================
+// ADD STUDENT
+// ==========================================
+
+function addStudent(name, age, course, marks, city) {
+
+    const newStudent = {
+        id: students.length + 1,
+        name,
+        age,
+        course,
+        marks,
+        city
+    };
+
+    students.push(newStudent);
+
+    console.log("\n✅ Student Added Successfully");
+}
+
+// ==========================================
+// FIND STUDENT
+// ==========================================
+
+function findStudent(id) {
+
+    const student = students.find((student) => {
+        return student.id === Number(id);
+    });
+
+    if (student) {
+        console.log("\n🔍 Student Found:");
+        console.log(student);
+    } else {
+        console.log("\n❌ Student Not Found");
+    }
+}
+
+// ==========================================
+// DELETE STUDENT
+// ==========================================
+
+function deleteStudent(id) {
+
+    const oldLength = students.length;
+
+    students = students.filter((student) => {
+        return student.id !== Number(id);
+    });
+
+    if (students.length < oldLength) {
+        console.log("\n🗑️ Student Deleted");
+    } else {
+        console.log("\n❌ Student Not Found");
+    }
+}
+
+// ==========================================
+// UPDATE MARKS
+// ==========================================
+
+function updateMarks(id, newMarks) {
+
+    const student = students.find((student) => {
+        return student.id === Number(id);
+    });
+
+    if (student) {
+
+        student.marks = Number(newMarks);
+
+        console.log("\n✏️ Marks Updated");
+        console.log(student);
+
+    } else {
+
+        console.log("\n❌ Student Not Found");
+
+    }
+}
+
+// ==========================================
+// FILTER BY COURSE
+// ==========================================
+
+function filterByCourse(course) {
+
+    const result = students.filter((student) => {
+
+        return student.course.toLowerCase() ===
+            course.toLowerCase();
+
+    });
+
+    console.log(`\n===== ${course.toUpperCase()} STUDENTS =====`);
+
+    result.forEach((student) => {
+
+        console.log(
+            `${student.name} → ${student.marks} marks`
+        );
+
+    });
+}
+
+// ==========================================
+// FILTER BY CITY
+// ==========================================
+
+function filterByCity(city) {
+
+    const result = students.filter((student) => {
+
+        return student.city.toLowerCase() ===
+            city.toLowerCase();
+
+    });
+
+    console.log(`\n===== STUDENTS FROM ${city.toUpperCase()} =====`);
+
+    result.forEach((student) => {
+
+        console.log(student.name);
+
+    });
+}
+
+// ==========================================
+// TOPPER
+// ==========================================
+
+function findTopper() {
+
+    const topper = students.reduce((highest, student) => {
+
+        return student.marks > highest.marks
+            ? student
+            : highest;
+
+    });
+
+    console.log("\n🏆 TOPPER:");
+    console.log(topper);
+}
+
+// ==========================================
+// AVERAGE MARKS
+// ==========================================
+
+function averageMarks() {
+
+    const total = students.reduce((sum, student) => {
+
+        return sum + student.marks;
+
+    }, 0);
+
+    const average = total / students.length;
+
+    console.log(
+        `\n📊 Average Marks: ${average.toFixed(2)}`
+    );
+}
+
+// ==========================================
+// SORT BY MARKS
+// ==========================================
+
+function sortByMarks() {
+
+    const result = [...students].sort((a, b) => {
+
+        return b.marks - a.marks;
+
+    });
+
+    console.log("\n===== STUDENTS BY MARKS =====");
+
+    result.forEach((student, index) => {
+
+        console.log(
+            `${index + 1}. ${student.name} → ${student.marks}`
+        );
+
+    });
+}
+
+// ==========================================
+// SEARCH STUDENT
+// ==========================================
+
+function searchStudent(keyword) {
+
+    const result = students.filter((student) => {
+
+        return student.name
+            .toLowerCase()
+            .includes(keyword.toLowerCase());
+
+    });
+
+    console.log(`\n🔎 Search: ${keyword}`);
+
+    result.forEach((student) => {
+
+        console.log(student);
+
+    });
+}
+
+// ==========================================
+// PASS / FAIL STUDENTS
+// ==========================================
+
+function passFailStudents() {
+
+    const passed = students.filter((student) => {
+        return student.marks >= 40;
+    });
+
+    const failed = students.filter((student) => {
+        return student.marks < 40;
+    });
+
+    console.log("\n✅ PASSED STUDENTS");
+
+    passed.forEach((student) => {
+        console.log(student.name);
+    });
+
+    console.log("\n❌ FAILED STUDENTS");
+
+    failed.forEach((student) => {
+        console.log(student.name);
+    });
+}
+
+// ==========================================
+// COURSE SUMMARY
+// ==========================================
+
+function courseSummary() {
+
+    const summary = students.reduce((result, student) => {
+
+        if (!result[student.course]) {
+            result[student.course] = 0;
+        }
+
+        result[student.course]++;
+
+        return result;
+
+    }, {});
+
+    console.log("\n===== COURSE SUMMARY =====");
+
+    Object.entries(summary).forEach(([course, count]) => {
+
+        console.log(`${course}: ${count} students`);
+
+    });
+}
+
+// ==========================================
+// ADDITIONAL TESTING
+// ==========================================
+
+showStudents();
+
+addStudent(
+    "Karan",
+    20,
+    "React",
+    81,
+    "Bhopal"
+);
+
+findStudent(2);
+
+updateMarks(3, 84);
+
+filterByCourse("JavaScript");
+
+filterByCity("Bhopal");
+
+findTopper();
+
+averageMarks();
+
+sortByMarks();
+
+searchStudent("rahul");
+
+passFailStudents();
+
+courseSummary();
+
+deleteStudent(2);
+
+console.log("\n===== FINAL STUDENT DATA =====");
+
+console.log(students);
