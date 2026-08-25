@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MovieFlix</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #0f0f0f;
+            color: white;
+        }
+
+        /* Navbar */
+
+        header {
+            background: #141414;
+            padding: 18px 7%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #e50914;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            color: #e50914;
+        }
+
+        .search {
+            padding: 9px 14px;
+            border-radius: 5px;
+            border: 1px solid #555;
+            background: #222;
+            color: white;
+            outline: none;
+        }
+
+        /* Hero */
+
+        .hero {
+            min-height: 520px;
+            padding: 100px 7%;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(
+                90deg,
+                #111 20%,
+                #111b 50%,
+                #1118
+            );
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            margin-bottom: 15px;
+        }
+
+        .hero h1 span {
+            color: #e50914;
+        }
+
+        .details {
+            margin-bottom: 20px;
+            color: #bbb;
+        }
+
+        .hero p {
+            color: #ccc;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            padding: 13px 22px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .watch {
+            background: #e50914;
+            color: white;
+        }
+
+        .watch:hover {
+            background: #b20710;
+        }
+
+        .info {
+            background: #444;
+            color: white;
+        }
+
+        .info:hover {
+            background: #666;
+        }
+
+        /* Sections */
+
+        .container {
+            width: 86%;
+            margin: auto;
+        }
+
+        .section {
+            padding: 45px 0;
+        }
+
+        .section h2 {
+            margin-bottom: 25px;
+            font-size: 28px;
+        }
+
+        /* Movies */
+
+        .movies {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 18px;
+        }
+
+        .movie {
+            background: #181818;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .movie:hover {
+            transform: scale(1.04);
+        }
+
+        .poster {
+            height: 260px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 65px;
+            background: #292929;
+        }
+
+        .movie-content {
+            padding: 15px;
+        }
+
+        .movie-content h3 {
+            margin-bottom: 8px;
+        }
+
+        .movie-content p {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            color: #ffc107;
+        }
+
+        /* Categories */
+
+        .categories {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .category {
+            padding: 12px 20px;
+            background: #222;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .category:hover {
+            background: #e50914;
+        }
+
+        /* Subscription */
+
+        .subscription {
+            background: #181818;
+            padding: 45px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .subscription h2 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .subscription p {
+            color: #aaa;
+            margin-bottom: 25px;
+        }
+
+        .plans {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .plan {
+            background: #252525;
+            padding: 30px;
+            border-radius: 10px;
+        }
+
+        .plan h3 {
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 30px;
+            color: #e50914;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .plan p {
+            color: #aaa;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+
+        footer {
+            background: #080808;
+            padding: 40px 7%;
+            color: #aaa;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+
+        footer h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        footer a {
+            display: block;
+            color: #aaa;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            border-top: 1px solid #333;
+            padding-top: 20px;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 1000px) {
+
+            .movies {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 700px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 7px;
+            }
+
+            .search {
+                width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 40px;
+            }
+
+            .movies {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .plans {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 450px) {
+
+            .movies {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .poster {
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+
+    <header>
+
+        <div class="logo">
+            MOVIEFLIX
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#movies">Movies</a>
+            <a href="#series">Series</a>
+            <a href="#plans">Plans</a>
+        </nav>
+
+        <input
+            class="search"
+            type="text"
+            placeholder="Search movies..."
+        >
+
+    </header>
+
+
+    <!-- Hero -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h1>
+                Watch <span>Unlimited</span>
+                Movies
+            </h1>
+
+            <div class="details">
+                ⭐ 8.8 &nbsp; | &nbsp; 2026 &nbsp; | &nbsp; 2h 15m
+            </div>
+
+            <p>
+                Discover amazing movies, exciting web series
+                and exclusive content. Stream your favorite
+                entertainment anytime and anywhere.
+            </p>
+
+            <button class="btn watch">
+                ▶ Watch Now
+            </button>
+
+            <button class="btn info">
+                More Info
+            </button>
+
+        </div>
+
+    </section>
+
+
+    <!-- Trending -->
+
+    <section class="section" id="movies">
+
+        <div class="container">
+
+            <h2>🔥 Trending Movies</h2>
+
+            <div class="movies">
+
+                <div class="movie">
+
+                    <div class="poster">🎬</div>
+
+                    <div class="movie-content">
+
+                        <h3>Dark Horizon</h3>
+
+                        <p>Action • Thriller</p>
+
+                        <div class="rating">
+                            ⭐ 8.7
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="movie">
+
+                    <div class="poster">🚀</div>
+
+                    <div class="movie-content">
+
+                        <h3>Space Mission</h3>
+
+                        <p>Sci-Fi • Adventure</p>
+
+                        <div class="rating">
+                            ⭐ 9.1
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="movie">
+
+                    <div class="poster">🕵️</div>
+
+                    <div class="movie-content">
+
+                        <h3>The Detective</h3>
+
+                        <p>Mystery • Crime</p>
+
+                        <div class="rating">
+                            ⭐ 8.5
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="movie">
+
+                    <div class="poster">🏝️</div>
+
+                    <div class="movie-content">
+
+                        <h3>Lost Island</h3>
+
+                        <p>Adventure • Drama</p>
+
+                        <div class="rating">
+                            ⭐ 8.2
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="movie">
+
+                    <div class="poster">⚔️</div>
+
+                    <div class="movie-content">
+
+                        <h3>Warrior</h3>
+
+                        <p>Action • History</p>
+
+                        <div class="rating">
+                            ⭐ 9.0
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Popular -->
+
+    <section class="section">
+
+        <div class="container">
+
+            <h2>⭐ Popular Movies</h2>
+
+            <div class="movies">
+
+                <div class="movie">
+                    <div class="poster">🧟</div>
+                    <div class="movie-content">
+                        <h3>Last Survivor</h3>
+                        <p>Horror • Action</p>
+                        <div class="rating">⭐ 8.4</div>
+                    </div>
+                </div>
+
+                <div class="movie">
+                    <div class="poster">❤️</div>
+                    <div class="movie-content">
+                        <h3>Love Story</h3>
+                        <p>Romance • Drama</p>
+                        <div class="rating">⭐ 8.1</div>
+                    </div>
+                </div>
+
+                <div class="movie">
+                    <div class="poster">😂</div>
+                    <div class="movie-content">
+                        <h3>Crazy Friends</h3>
+                        <p>Comedy • Family</p>
+                        <div class="rating">⭐ 7.9</div>
+                    </div>
+                </div>
+
+                <div class="movie">
+                    <div class="poster">🧙</div>
+                    <div class="movie-content">
+                        <h3>Magic World</h3>
+                        <p>Fantasy • Adventure</p>
+                        <div class="rating">⭐ 8.9</div>
+                    </div>
+                </div>
+
+                <div class="movie">
+                    <div class="poster">🏎️</div>
+                    <div class="movie-content">
+                        <h3>Speed Racer</h3>
+                        <p>Action • Sport</p>
+                        <div class="rating">⭐ 8.6</div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Categories -->
+
+    <section class="section" id="series">
+
+        <div class="container">
+
+            <h2>Browse By Category</h2>
+
+            <div class="categories">
+
+                <div class="category">Action</div>
+                <div class="category">Comedy</div>
+                <div class="category">Romance</div>
+                <div class="category">Horror</div>
+                <div class="category">Thriller</div>
+                <div class="category">Sci-Fi</div>
+                <div class="category">Drama</div>
+                <div class="category">Adventure</div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Plans -->
+
+    <section class="section" id="plans">
+
+        <div class="container">
+
+            <div class="subscription">
+
+                <h2>
+                    Choose Your Plan
+                </h2>
+
+                <p>
+                    Stream unlimited entertainment with
+                    our flexible plans.
+                </p>
+
+                <div class="plans">
+
+                    <div class="plan">
+
+                        <h3>Basic</h3>
+
+                        <div class="price">
+                            ₹149
+                        </div>
+
+                        <p>
+                            HD Quality<br>
+                            1 Device<br>
+                            Mobile & Laptop<br>
+                            Unlimited Movies
+                        </p>
+
+                    </div>
+
+
+                    <div class="plan">
+
+                        <h3>Standard</h3>
+
+                        <div class="price">
+                            ₹299
+                        </div>
+
+                        <p>
+                            Full HD Quality<br>
+                            2 Devices<br>
+                            Mobile, TV & Laptop<br>
+                            Unlimited Movies
+                        </p>
+
+                    </div>
+
+
+                    <div class="plan">
+
+                        <h3>Premium</h3>
+
+                        <div class="price">
+                            ₹499
+                        </div>
+
+                        <p>
+                            4K Quality<br>
+                            4 Devices<br>
+                            All Devices<br>
+                            Unlimited Movies
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <div class="footer-content">
+
+            <div>
+                <h3>MovieFlix</h3>
+                <p>
+                    Your entertainment destination.
+                </p>
+            </div>
+
+            <div>
+                <h3>Company</h3>
+                <a href="#">About</a>
+                <a href="#">Careers</a>
+                <a href="#">Contact</a>
+            </div>
+
+            <div>
+                <h3>Support</h3>
+                <a href="#">Help Center</a>
+                <a href="#">Privacy</a>
+                <a href="#">Terms</a>
+            </div>
+
+            <div>
+                <h3>Follow Us</h3>
+                <a href="#">Instagram</a>
+                <a href="#">YouTube</a>
+                <a href="#">Facebook</a>
+            </div>
+
+        </div>
+
+        <div class="copyright">
+            © 2026 MovieFlix. All Rights Reserved.
+        </div>
+
+    </footer>
+
+</body>
+</html>
