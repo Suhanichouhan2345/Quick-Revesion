@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FoodVilla Restaurant</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: #fffaf5;
+            color: #222;
+        }
+
+        header {
+            background: #1f2937;
+            color: white;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+        }
+
+        nav a:hover {
+            color: #f59e0b;
+        }
+
+        .hero {
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            padding: 60px 8%;
+            background: #fef3c7;
+        }
+
+        .hero-content {
+            width: 55%;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #ea580c;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #ea580c;
+            color: white;
+            padding: 14px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background: #c2410c;
+        }
+
+        .container {
+            width: 84%;
+            margin: auto;
+        }
+
+        .section {
+            padding: 60px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title h2 {
+            font-size: 35px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #666;
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .food-card {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .food-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .food-image {
+            height: 180px;
+            background: #fed7aa;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 70px;
+            margin-bottom: 20px;
+        }
+
+        .food-card h3 {
+            font-size: 22px;
+            margin-bottom: 10px;
+        }
+
+        .food-card p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            color: #ea580c;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .about {
+            background: #1f2937;
+            color: white;
+        }
+
+        .about-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-box {
+            flex: 1;
+        }
+
+        .about-box h2 {
+            font-size: 38px;
+            margin-bottom: 20px;
+        }
+
+        .about-box p {
+            line-height: 1.8;
+            color: #d1d5db;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            background: #374151;
+            padding: 25px;
+            border-radius: 10px;
+        }
+
+        .feature h3 {
+            margin-bottom: 8px;
+            color: #fbbf24;
+        }
+
+        .contact-form {
+            max-width: 650px;
+            margin: auto;
+            background: white;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            outline: none;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: none;
+        }
+
+        .submit {
+            width: 100%;
+            padding: 14px;
+            background: #ea580c;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .submit:hover {
+            background: #c2410c;
+        }
+
+        footer {
+            background: #111827;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        footer p {
+            color: #9ca3af;
+        }
+
+        @media (max-width: 900px) {
+
+            .menu {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero-content {
+                width: 80%;
+            }
+
+            .about-content {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 7px;
+            }
+
+            .hero {
+                padding: 50px 8%;
+            }
+
+            .hero-content {
+                width: 100%;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .menu {
+                grid-template-columns: 1fr;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+
+    <header>
+
+        <div class="logo">
+            FoodVilla 🍴
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#menu">Menu</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+
+    </header>
+
+
+    <!-- Hero -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h1>
+                Delicious Food,
+                <span>Happy Mood!</span>
+            </h1>
+
+            <p>
+                Welcome to FoodVilla, where delicious food meets
+                a comfortable atmosphere. Enjoy fresh ingredients,
+                amazing flavors and unforgettable meals.
+            </p>
+
+            <a href="#menu" class="btn">
+                Explore Menu
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- Menu -->
+
+    <section class="section" id="menu">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>Our Popular Menu</h2>
+
+                <p>
+                    Try some of our customer's favorite dishes.
+                </p>
+
+            </div>
+
+
+            <div class="menu">
+
+                <div class="food-card">
+
+                    <div class="food-image">
+                        🍕
+                    </div>
+
+                    <h3>Italian Pizza</h3>
+
+                    <p>
+                        Fresh vegetables, mozzarella cheese
+                        and delicious Italian sauce.
+                    </p>
+
+                    <div class="price">
+                        ₹299
+                    </div>
+
+                </div>
+
+
+                <div class="food-card">
+
+                    <div class="food-image">
+                        🍔
+                    </div>
+
+                    <h3>Classic Burger</h3>
+
+                    <p>
+                        Crispy vegetables, cheese and
+                        our special burger sauce.
+                    </p>
+
+                    <div class="price">
+                        ₹199
+                    </div>
+
+                </div>
+
+
+                <div class="food-card">
+
+                    <div class="food-image">
+                        🍝
+                    </div>
+
+                    <h3>Cheese Pasta</h3>
+
+                    <p>
+                        Creamy pasta prepared with
+                        fresh herbs and cheese.
+                    </p>
+
+                    <div class="price">
+                        ₹249
+                    </div>
+
+                </div>
+
+
+                <div class="food-card">
+
+                    <div class="food-image">
+                        🌮
+                    </div>
+
+                    <h3>Mexican Tacos</h3>
+
+                    <p>
+                        Spicy filling, fresh vegetables
+                        and homemade Mexican sauce.
+                    </p>
+
+                    <div class="price">
+                        ₹179
+                    </div>
+
+                </div>
+
+
+                <div class="food-card">
+
+                    <div class="food-image">
+                        🍜
+                    </div>
+
+                    <h3>Veg Noodles</h3>
+
+                    <p>
+                        Fresh vegetables mixed with
+                        delicious Chinese-style noodles.
+                    </p>
+
+                    <div class="price">
+                        ₹159
+                    </div>
+
+                </div>
+
+
+                <div class="food-card">
+
+                    <div class="food-image">
+                        🍰
+                    </div>
+
+                    <h3>Chocolate Cake</h3>
+
+                    <p>
+                        Soft chocolate cake with
+                        creamy chocolate frosting.
+                    </p>
+
+                    <div class="price">
+                        ₹149
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- About -->
+
+    <section class="section about" id="about">
+
+        <div class="container">
+
+            <div class="about-content">
+
+                <div class="about-box">
+
+                    <h2>Why Choose FoodVilla?</h2>
+
+                    <p>
+                        We believe that good food brings people
+                        together. Our chefs use fresh ingredients
+                        and carefully selected recipes to provide
+                        a memorable dining experience.
+                    </p>
+
+                </div>
+
+
+                <div class="about-box">
+
+                    <div class="features">
+
+                        <div class="feature">
+                            <h3>🍃 Fresh Food</h3>
+                            <p>Fresh ingredients every day.</p>
+                        </div>
+
+                        <div class="feature">
+                            <h3>👨‍🍳 Expert Chefs</h3>
+                            <p>Experienced professional chefs.</p>
+                        </div>
+
+                        <div class="feature">
+                            <h3>⚡ Fast Service</h3>
+                            <p>Quick and friendly service.</p>
+                        </div>
+
+                        <div class="feature">
+                            <h3>❤️ Best Quality</h3>
+                            <p>Quality is our first priority.</p>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- Contact -->
+
+    <section class="section" id="contact">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>Book a Table</h2>
+
+                <p>
+                    Reserve your table for a delicious meal.
+                </p>
+
+            </div>
+
+
+            <form class="contact-form">
+
+                <div class="form-group">
+
+                    <label>Name</label>
+
+                    <input
+                        type="text"
+                        placeholder="Enter your name"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        placeholder="Enter your email"
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Number of Guests</label>
+
+                    <select>
+
+                        <option>1 Person</option>
+                        <option>2 People</option>
+                        <option>3 People</option>
+                        <option>4 People</option>
+                        <option>5+ People</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Message</label>
+
+                    <textarea
+                        placeholder="Enter your message">
+                    </textarea>
+
+                </div>
+
+
+                <button class="submit">
+                    Book Now
+                </button>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- Footer -->
+
+    <footer>
+
+        <h3>FoodVilla 🍴</h3>
+
+        <p>
+            Fresh food. Great taste. Happy moments.
+        </p>
+
+        <br>
+
+        <p>
+            © 2026 FoodVilla. All Rights Reserved.
+        </p>
+
+    </footer>
+
+</body>
+</html>
