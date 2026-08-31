@@ -1,0 +1,1200 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Foodie - Food Delivery</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f8f8f8;
+            color: #222;
+        }
+
+        header {
+            background: white;
+            padding: 18px 8%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: #e63946;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            margin-left: 25px;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            color: #e63946;
+        }
+
+        .login {
+            padding: 10px 20px;
+            background: #e63946;
+            color: white !important;
+            border-radius: 6px;
+        }
+
+        .hero {
+            min-height: 500px;
+            display: flex;
+            align-items: center;
+            padding: 60px 8%;
+            background:
+                linear-gradient(
+                    rgba(0,0,0,0.5),
+                    rgba(0,0,0,0.5)
+                ),
+                url("https://images.unsplash.com/photo-1504674900247-0877df9cc836")
+                center/cover;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 19px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .search-box {
+            display: flex;
+            max-width: 600px;
+            background: white;
+            padding: 6px;
+            border-radius: 8px;
+        }
+
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 14px;
+            font-size: 15px;
+        }
+
+        .search-box button {
+            border: none;
+            background: #e63946;
+            color: white;
+            padding: 0 25px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .container {
+            width: 84%;
+            margin: auto;
+        }
+
+        .section {
+            padding: 70px 0;
+        }
+
+        .section-title {
+            margin-bottom: 35px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
+
+        .section-title p {
+            color: #777;
+        }
+
+        .categories {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 18px;
+        }
+
+        .category {
+            background: white;
+            text-align: center;
+            padding: 25px 10px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .category:hover {
+            transform: translateY(-7px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+        }
+
+        .category-icon {
+            font-size: 42px;
+            margin-bottom: 12px;
+        }
+
+        .category h3 {
+            font-size: 16px;
+        }
+
+        .offers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .offer {
+            padding: 30px;
+            border-radius: 12px;
+            color: white;
+            min-height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .offer:nth-child(1) {
+            background: #e63946;
+        }
+
+        .offer:nth-child(2) {
+            background: #457b9d;
+        }
+
+        .offer:nth-child(3) {
+            background: #2a9d8f;
+        }
+
+        .offer h3 {
+            font-size: 25px;
+            margin-bottom: 10px;
+        }
+
+        .offer p {
+            line-height: 1.5;
+        }
+
+        .restaurants {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .restaurant {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.07);
+            transition: 0.3s;
+        }
+
+        .restaurant:hover {
+            transform: translateY(-7px);
+        }
+
+        .restaurant img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .restaurant-info {
+            padding: 22px;
+        }
+
+        .restaurant-info h3 {
+            font-size: 21px;
+            margin-bottom: 8px;
+        }
+
+        .restaurant-info p {
+            color: #777;
+            margin-bottom: 12px;
+        }
+
+        .rating {
+            display: inline-block;
+            background: #2a9d8f;
+            color: white;
+            padding: 5px 9px;
+            border-radius: 5px;
+            font-size: 13px;
+        }
+
+        .time {
+            margin-left: 10px;
+            color: #777;
+            font-size: 14px;
+        }
+
+        .menu {
+            margin-top: 50px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+        }
+
+        .menu-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .food-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding: 15px 0;
+        }
+
+        .food-details h3 {
+            margin-bottom: 6px;
+        }
+
+        .food-details p {
+            color: #777;
+            font-size: 14px;
+        }
+
+        .food-price {
+            font-weight: bold;
+            color: #e63946;
+        }
+
+        .app-section {
+            background: #fff;
+            padding: 70px 8%;
+        }
+
+        .app-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+        }
+
+        .app-text {
+            max-width: 600px;
+        }
+
+        .app-text h2 {
+            font-size: 38px;
+            margin-bottom: 15px;
+        }
+
+        .app-text p {
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 25px;
+        }
+
+        .download-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .download {
+            background: #111;
+            color: white;
+            padding: 14px 22px;
+            border-radius: 7px;
+            text-decoration: none;
+        }
+
+        .phone {
+            font-size: 130px;
+        }
+
+        .reviews {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .review {
+            background: white;
+            padding: 28px;
+            border-radius: 12px;
+        }
+
+        .review-stars {
+            margin-bottom: 15px;
+        }
+
+        .review p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 18px;
+        }
+
+        .review h4 {
+            font-size: 16px;
+        }
+
+        footer {
+            background: #1d1d1d;
+            color: white;
+            padding: 55px 8% 25px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        footer h3 {
+            margin-bottom: 18px;
+        }
+
+        footer p {
+            color: #aaa;
+            line-height: 1.7;
+        }
+
+        footer ul {
+            list-style: none;
+        }
+
+        footer li {
+            margin: 12px 0;
+            color: #aaa;
+        }
+
+        footer li:hover {
+            color: white;
+            cursor: pointer;
+        }
+
+        .copyright {
+            text-align: center;
+            color: #888;
+            margin-top: 45px;
+            padding-top: 22px;
+            border-top: 1px solid #333;
+        }
+
+        @media(max-width: 950px) {
+
+            .categories {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .offers,
+            .restaurants,
+            .reviews {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .app-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media(max-width: 600px) {
+
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav a {
+                margin: 0 5px;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .search-box {
+                flex-direction: column;
+                gap: 5px;
+            }
+
+            .search-box button {
+                padding: 13px;
+            }
+
+            .categories,
+            .offers,
+            .restaurants,
+            .reviews,
+            .menu-list,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section {
+                padding: 50px 0;
+            }
+
+            .phone {
+                font-size: 90px;
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header>
+
+        <div class="logo">
+            Food<span>ie</span>
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#categories">Categories</a>
+            <a href="#restaurants">Restaurants</a>
+            <a href="#reviews">Reviews</a>
+            <a href="#" class="login">Login</a>
+        </nav>
+
+    </header>
+
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h1>
+                Delicious Food,
+                Delivered Fast 🍔
+            </h1>
+
+            <p>
+                Order your favorite meals from the best restaurants
+                around you and enjoy delicious food at your doorstep.
+            </p>
+
+            <div class="search-box">
+
+                <input
+                    type="text"
+                    placeholder="Search for food or restaurant">
+
+                <button>
+                    Search
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="section" id="categories">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>
+                    Explore Categories
+                </h2>
+
+                <p>
+                    What are you craving today?
+                </p>
+
+            </div>
+
+
+            <div class="categories">
+
+                <div class="category">
+                    <div class="category-icon">🍕</div>
+                    <h3>Pizza</h3>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🍔</div>
+                    <h3>Burger</h3>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🍜</div>
+                    <h3>Noodles</h3>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🍛</div>
+                    <h3>Indian</h3>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🍰</div>
+                    <h3>Desserts</h3>
+                </div>
+
+                <div class="category">
+                    <div class="category-icon">🥗</div>
+                    <h3>Healthy</h3>
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="section">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>
+                    Today's Offers 🔥
+                </h2>
+
+                <p>
+                    Grab these deals before they disappear
+                </p>
+
+            </div>
+
+
+            <div class="offers">
+
+                <div class="offer">
+
+                    <h3>
+                        50% OFF
+                    </h3>
+
+                    <p>
+                        Get 50% discount on your first order.
+                    </p>
+
+                </div>
+
+
+                <div class="offer">
+
+                    <h3>
+                        FREE DELIVERY
+                    </h3>
+
+                    <p>
+                        Enjoy free delivery on orders above ₹299.
+                    </p>
+
+                </div>
+
+
+                <div class="offer">
+
+                    <h3>
+                        BUY 1 GET 1
+                    </h3>
+
+                    <p>
+                        Order selected meals and get one free.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="section" id="restaurants">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>
+                    Popular Restaurants
+                </h2>
+
+                <p>
+                    Top-rated restaurants near you
+                </p>
+
+            </div>
+
+
+            <div class="restaurants">
+
+                <div class="restaurant">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1579751626657-72bc17010498"
+                        alt="Pizza restaurant">
+
+                    <div class="restaurant-info">
+
+                        <h3>
+                            Pizza Palace
+                        </h3>
+
+                        <p>
+                            Italian • Pizza • Fast Food
+                        </p>
+
+                        <span class="rating">
+                            ★ 4.8
+                        </span>
+
+                        <span class="time">
+                            25 min
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="restaurant">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1550547660-d9450f859349"
+                        alt="Burger restaurant">
+
+                    <div class="restaurant-info">
+
+                        <h3>
+                            Burger House
+                        </h3>
+
+                        <p>
+                            Burgers • Fast Food • Drinks
+                        </p>
+
+                        <span class="rating">
+                            ★ 4.6
+                        </span>
+
+                        <span class="time">
+                            20 min
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="restaurant">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1515003197210-e0cd71810b5f"
+                        alt="Indian food">
+
+                    <div class="restaurant-info">
+
+                        <h3>
+                            Spice Kitchen
+                        </h3>
+
+                        <p>
+                            Indian • North Indian • Thali
+                        </p>
+
+                        <span class="rating">
+                            ★ 4.7
+                        </span>
+
+                        <span class="time">
+                            30 min
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="restaurant">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1552611052-33e04de081de"
+                        alt="Noodles">
+
+                    <div class="restaurant-info">
+
+                        <h3>
+                            Asian Bowl
+                        </h3>
+
+                        <p>
+                            Chinese • Noodles • Asian
+                        </p>
+
+                        <span class="rating">
+                            ★ 4.5
+                        </span>
+
+                        <span class="time">
+                            28 min
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="restaurant">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1565958011703-44f9829ba187"
+                        alt="Dessert">
+
+                    <div class="restaurant-info">
+
+                        <h3>
+                            Sweet Corner
+                        </h3>
+
+                        <p>
+                            Desserts • Cakes • Ice Cream
+                        </p>
+
+                        <span class="rating">
+                            ★ 4.9
+                        </span>
+
+                        <span class="time">
+                            15 min
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="restaurant">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1547592180-85f173990554"
+                        alt="Healthy food">
+
+                    <div class="restaurant-info">
+
+                        <h3>
+                            Green Bowl
+                        </h3>
+
+                        <p>
+                            Healthy • Salads • Vegan
+                        </p>
+
+                        <span class="rating">
+                            ★ 4.6
+                        </span>
+
+                        <span class="time">
+                            22 min
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="section">
+
+        <div class="container">
+
+            <div class="menu">
+
+                <div class="section-title">
+
+                    <h2>
+                        Popular Food Items
+                    </h2>
+
+                    <p>
+                        Most ordered dishes this week
+                    </p>
+
+                </div>
+
+
+                <div class="menu-list">
+
+                    <div class="food-item">
+
+                        <div class="food-details">
+
+                            <h3>
+                                Margherita Pizza
+                            </h3>
+
+                            <p>
+                                Fresh tomato, mozzarella and basil
+                            </p>
+
+                        </div>
+
+                        <div class="food-price">
+                            ₹299
+                        </div>
+
+                    </div>
+
+
+                    <div class="food-item">
+
+                        <div class="food-details">
+
+                            <h3>
+                                Classic Burger
+                            </h3>
+
+                            <p>
+                                Cheese, lettuce, tomato and sauce
+                            </p>
+
+                        </div>
+
+                        <div class="food-price">
+                            ₹199
+                        </div>
+
+                    </div>
+
+
+                    <div class="food-item">
+
+                        <div class="food-details">
+
+                            <h3>
+                                Paneer Butter Masala
+                            </h3>
+
+                            <p>
+                                Creamy paneer with Indian spices
+                            </p>
+
+                        </div>
+
+                        <div class="food-price">
+                            ₹249
+                        </div>
+
+                    </div>
+
+
+                    <div class="food-item">
+
+                        <div class="food-details">
+
+                            <h3>
+                                Veg Noodles
+                            </h3>
+
+                            <p>
+                                Stir-fried noodles with fresh vegetables
+                            </p>
+
+                        </div>
+
+                        <div class="food-price">
+                            ₹179
+                        </div>
+
+                    </div>
+
+
+                    <div class="food-item">
+
+                        <div class="food-details">
+
+                            <h3>
+                                Chocolate Cake
+                            </h3>
+
+                            <p>
+                                Soft chocolate cake with creamy frosting
+                            </p>
+
+                        </div>
+
+                        <div class="food-price">
+                            ₹149
+                        </div>
+
+                    </div>
+
+
+                    <div class="food-item">
+
+                        <div class="food-details">
+
+                            <h3>
+                                Caesar Salad
+                            </h3>
+
+                            <p>
+                                Fresh vegetables with creamy dressing
+                            </p>
+
+                        </div>
+
+                        <div class="food-price">
+                            ₹219
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="app-section">
+
+        <div class="app-content">
+
+            <div class="app-text">
+
+                <h2>
+                    Get the Foodie App 📱
+                </h2>
+
+                <p>
+                    Order food faster, track your delivery in real time
+                    and get exclusive discounts available only on the app.
+                </p>
+
+                <div class="download-buttons">
+
+                    <a href="#" class="download">
+                        ▶ Google Play
+                    </a>
+
+                    <a href="#" class="download">
+                         App Store
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="phone">
+                📱
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="section" id="reviews">
+
+        <div class="container">
+
+            <div class="section-title">
+
+                <h2>
+                    Customer Reviews
+                </h2>
+
+                <p>
+                    See what our customers think
+                </p>
+
+            </div>
+
+
+            <div class="reviews">
+
+                <div class="review">
+
+                    <div class="review-stars">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+
+                    <p>
+                        Amazing food and super fast delivery.
+                        The food arrived hot and fresh.
+                    </p>
+
+                    <h4>
+                        Ananya Sharma
+                    </h4>
+
+                </div>
+
+
+                <div class="review">
+
+                    <div class="review-stars">
+                        ⭐⭐⭐⭐⭐
+                    </div>
+
+                    <p>
+                        I love the variety of restaurants available.
+                        Ordering food has become so easy.
+                    </p>
+
+                    <h4>
+                        Rohan Patel
+                    </h4>
+
+                </div>
+
+
+                <div class="review">
+
+                    <div class="review-stars">
+                        ⭐⭐⭐⭐☆
+                    </div>
+
+                    <p>
+                        Great offers and very simple interface.
+                        Definitely one of my favorite food apps.
+                    </p>
+
+                    <h4>
+                        Sneha Gupta
+                    </h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <footer>
+
+        <div class="footer-grid">
+
+            <div>
+
+                <h3>
+                    Foodie
+                </h3>
+
+                <p>
+                    Your favorite food delivered straight
+                    to your doorstep. Fast, fresh and delicious.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Company
+                </h3>
+
+                <ul>
+                    <li>About Us</li>
+                    <li>Careers</li>
+                    <li>Team</li>
+                    <li>Contact</li>
+                </ul>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Help
+                </h3>
+
+                <ul>
+                    <li>FAQs</li>
+                    <li>Support</li>
+                    <li>Privacy</li>
+                    <li>Terms</li>
+                </ul>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Follow Us
+                </h3>
+
+                <ul>
+                    <li>Instagram</li>
+                    <li>Facebook</li>
+                    <li>YouTube</li>
+                    <li>Twitter</li>
+                </ul>
+
+            </div>
+
+        </div>
+
+
+        <div class="copyright">
+
+            © 2026 Foodie. All rights reserved.
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
+```
