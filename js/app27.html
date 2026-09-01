@@ -1,0 +1,832 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>MovieFlix - Movie Website</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #111;
+            color: white;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            height: 70px;
+            background: #181818;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 7%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 30px;
+            font-weight: bold;
+            color: #e50914;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: white;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #e50914;
+        }
+
+        .login-btn {
+            background: #e50914;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 75vh;
+
+            background:
+                linear-gradient(
+                    to right,
+                    rgba(0,0,0,0.95),
+                    rgba(0,0,0,0.5),
+                    rgba(0,0,0,0.2)
+                ),
+                url("https://images.unsplash.com/photo-1489599849927-2ee91cede3ba")
+                center/cover;
+
+            display: flex;
+            align-items: center;
+            padding: 60px 8%;
+        }
+
+        .hero-content {
+            max-width: 600px;
+        }
+
+        .hero h1 {
+            font-size: 55px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            line-height: 1.7;
+            color: #ddd;
+            margin-bottom: 25px;
+        }
+
+        .watch-btn {
+            display: inline-block;
+            background: #e50914;
+            color: white;
+            padding: 13px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .info-btn {
+            display: inline-block;
+            background: #444;
+            color: white;
+            padding: 13px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .watch-btn:hover,
+        .info-btn:hover {
+            opacity: 0.8;
+        }
+
+        /* SECTION */
+
+        .section {
+            padding: 45px 7%;
+        }
+
+        .section h2 {
+            margin-bottom: 25px;
+            font-size: 27px;
+        }
+
+        /* MOVIE GRID */
+
+        .movie-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(180px, 1fr)
+                );
+
+            gap: 22px;
+        }
+
+        .movie-card {
+            background: #1c1c1c;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .movie-card:hover {
+            transform: scale(1.04);
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 260px;
+            object-fit: cover;
+        }
+
+        .movie-info {
+            padding: 15px;
+        }
+
+        .movie-info h3 {
+            margin-bottom: 8px;
+        }
+
+        .movie-info p {
+            color: #aaa;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .rating {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        /* CATEGORY */
+
+        .categories {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .category {
+            padding: 10px 20px;
+            background: #292929;
+            border-radius: 20px;
+            cursor: pointer;
+        }
+
+        .category:hover {
+            background: #e50914;
+        }
+
+        /* FEATURES */
+
+        .features {
+            display: grid;
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(220px, 1fr)
+                );
+
+            gap: 25px;
+        }
+
+        .feature {
+            background: #1c1c1c;
+            padding: 30px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .feature-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            color: #aaa;
+            line-height: 1.5;
+        }
+
+        /* SUBSCRIBE */
+
+        .subscribe {
+            background: #181818;
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .subscribe h2 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .subscribe p {
+            color: #aaa;
+            margin-bottom: 25px;
+        }
+
+        .subscribe-form {
+            max-width: 600px;
+            margin: auto;
+            display: flex;
+        }
+
+        .subscribe-form input {
+            flex: 1;
+            padding: 14px;
+            border: none;
+            outline: none;
+            background: #333;
+            color: white;
+        }
+
+        .subscribe-form button {
+            border: none;
+            background: #e50914;
+            color: white;
+            padding: 0 25px;
+            cursor: pointer;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #080808;
+            padding: 40px 7%;
+        }
+
+        .footer-content {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(180px, 1fr)
+                );
+
+            gap: 30px;
+        }
+
+        footer h3 {
+            margin-bottom: 15px;
+        }
+
+        footer a {
+            display: block;
+            color: #888;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .copyright {
+            border-top: 1px solid #333;
+            margin-top: 30px;
+            padding-top: 20px;
+            text-align: center;
+            color: #777;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+
+            nav {
+                padding: 0 4%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                min-height: 65vh;
+                padding: 40px 6%;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero p {
+                font-size: 14px;
+            }
+
+            .movie-card img {
+                height: 230px;
+            }
+
+            .subscribe-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .subscribe-form input {
+                padding: 15px;
+            }
+
+            .subscribe-form button {
+                padding: 15px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <div class="logo">
+            MovieFlix
+        </div>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="#home">Home</a>
+            </li>
+
+            <li>
+                <a href="#movies">Movies</a>
+            </li>
+
+            <li>
+                <a href="#categories">Categories</a>
+            </li>
+
+            <li>
+                <a href="#features">Features</a>
+            </li>
+
+        </ul>
+
+        <a href="#" class="login-btn">
+            Login
+        </a>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h1>
+                Discover Your Next Favorite Movie
+            </h1>
+
+            <p>
+                Explore thousands of movies and TV shows.
+                Find new stories, exciting adventures,
+                comedy, drama and much more.
+            </p>
+
+            <a href="#movies" class="watch-btn">
+                Watch Now
+            </a>
+
+            <a href="#features" class="info-btn">
+                More Info
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- MOVIES -->
+
+    <section class="section" id="movies">
+
+        <h2>
+            Trending Movies
+        </h2>
+
+        <div class="movie-grid">
+
+
+            <div class="movie-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba"
+                    alt="Movie"
+                >
+
+                <div class="movie-info">
+
+                    <h3>
+                        The Adventure
+                    </h3>
+
+                    <p>
+                        Action • Adventure
+                    </p>
+
+                    <span class="rating">
+                        ★ 8.7
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="movie-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c"
+                    alt="Movie"
+                >
+
+                <div class="movie-info">
+
+                    <h3>
+                        Dark Night
+                    </h3>
+
+                    <p>
+                        Thriller • Mystery
+                    </p>
+
+                    <span class="rating">
+                        ★ 9.1
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="movie-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1485846234645-a62644f84728"
+                    alt="Movie"
+                >
+
+                <div class="movie-info">
+
+                    <h3>
+                        Lost World
+                    </h3>
+
+                    <p>
+                        Sci-Fi • Adventure
+                    </p>
+
+                    <span class="rating">
+                        ★ 8.4
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="movie-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1512820790803-83ca734da794"
+                    alt="Movie"
+                >
+
+                <div class="movie-info">
+
+                    <h3>
+                        The Story
+                    </h3>
+
+                    <p>
+                        Drama • Romance
+                    </p>
+
+                    <span class="rating">
+                        ★ 8.8
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="movie-card">
+
+                <img
+                    src="https://images.unsplash.com/photo-1536440136628-849c177e76a1"
+                    alt="Movie"
+                >
+
+                <div class="movie-info">
+
+                    <h3>
+                        Final Mission
+                    </h3>
+
+                    <p>
+                        Action • Thriller
+                    </p>
+
+                    <span class="rating">
+                        ★ 9.0
+                    </span>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- CATEGORIES -->
+
+    <section class="section" id="categories">
+
+        <h2>
+            Browse Categories
+        </h2>
+
+        <div class="categories">
+
+            <div class="category">
+                Action
+            </div>
+
+            <div class="category">
+                Comedy
+            </div>
+
+            <div class="category">
+                Drama
+            </div>
+
+            <div class="category">
+                Horror
+            </div>
+
+            <div class="category">
+                Romance
+            </div>
+
+            <div class="category">
+                Sci-Fi
+            </div>
+
+            <div class="category">
+                Thriller
+            </div>
+
+            <div class="category">
+                Animation
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- FEATURES -->
+
+    <section class="section" id="features">
+
+        <h2>
+            Why Choose MovieFlix?
+        </h2>
+
+        <div class="features">
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🎬
+                </div>
+
+                <h3>
+                    Huge Collection
+                </h3>
+
+                <p>
+                    Discover movies from different
+                    genres and countries.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    ⚡
+                </div>
+
+                <h3>
+                    Fast Streaming
+                </h3>
+
+                <p>
+                    Enjoy a smooth and fast
+                    entertainment experience.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    📱
+                </div>
+
+                <h3>
+                    Any Device
+                </h3>
+
+                <p>
+                    Watch your favorite movies
+                    on any screen.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🔒
+                </div>
+
+                <h3>
+                    Secure Account
+                </h3>
+
+                <p>
+                    Your account and personal
+                    information stay protected.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- SUBSCRIBE -->
+
+    <section class="subscribe">
+
+        <h2>
+            Stay Updated
+        </h2>
+
+        <p>
+            Get notifications about new movies
+            and upcoming releases.
+        </p>
+
+        <form class="subscribe-form">
+
+            <input
+                type="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <button type="submit">
+                Subscribe
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-content">
+
+
+            <div>
+
+                <h3>
+                    MovieFlix
+                </h3>
+
+                <p>
+                    Your destination for
+                    online entertainment.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Explore
+                </h3>
+
+                <a href="#">Movies</a>
+                <a href="#">TV Shows</a>
+                <a href="#">New Releases</a>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Support
+                </h3>
+
+                <a href="#">Help Center</a>
+                <a href="#">Contact Us</a>
+                <a href="#">FAQ</a>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Follow Us
+                </h3>
+
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">YouTube</a>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="copyright">
+
+            <p>
+                © 2026 MovieFlix. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>
+```
