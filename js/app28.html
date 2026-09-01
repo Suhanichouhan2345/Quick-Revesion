@@ -1,0 +1,1137 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TravelMate - Explore The World</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f5f7fa;
+            color: #222;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            height: 70px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 8%;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #087f8c;
+        }
+
+        .logo span {
+            color: #ff8c42;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 28px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #087f8c;
+        }
+
+        .book-btn {
+            text-decoration: none;
+            color: white;
+            background: #087f8c;
+            padding: 11px 20px;
+            border-radius: 6px;
+        }
+
+        .book-btn:hover {
+            background: #05636d;
+        }
+
+        /* HERO */
+
+        .hero {
+            min-height: 82vh;
+            display: flex;
+            align-items: center;
+            padding: 60px 8%;
+
+            background:
+                linear-gradient(
+                    rgba(0,0,0,0.45),
+                    rgba(0,0,0,0.45)
+                ),
+                url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee")
+                center/cover;
+        }
+
+        .hero-content {
+            color: white;
+            max-width: 650px;
+        }
+
+        .hero-content h1 {
+            font-size: 58px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-size: 19px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .hero-btn {
+            display: inline-block;
+            text-decoration: none;
+            color: white;
+            background: #ff8c42;
+            padding: 14px 28px;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .hero-btn:hover {
+            background: #e76f24;
+        }
+
+        /* SEARCH BOX */
+
+        .search-box {
+            background: white;
+            width: 85%;
+            max-width: 1000px;
+            margin: -40px auto 0;
+            position: relative;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns:
+                repeat(3, 1fr) auto;
+            gap: 15px;
+        }
+
+        .search-form input,
+        .search-form select {
+            padding: 13px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        .search-form button {
+            border: none;
+            background: #087f8c;
+            color: white;
+            padding: 0 25px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        /* SECTION */
+
+        .section {
+            padding: 75px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 35px;
+            margin-bottom: 12px;
+        }
+
+        .section-description {
+            text-align: center;
+            color: #777;
+            margin-bottom: 40px;
+        }
+
+        /* DESTINATIONS */
+
+        .destinations {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(230px, 1fr));
+            gap: 25px;
+        }
+
+        .destination {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: 0.3s;
+        }
+
+        .destination:hover {
+            transform: translateY(-8px);
+        }
+
+        .destination img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+        }
+
+        .destination-info {
+            padding: 20px;
+        }
+
+        .destination-info h3 {
+            margin-bottom: 8px;
+        }
+
+        .destination-info p {
+            color: #777;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .explore {
+            color: #087f8c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* PACKAGES */
+
+        .packages {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .package {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .package h3 {
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
+
+        .package .days {
+            color: #087f8c;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .package ul {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .package li {
+            margin: 10px 0;
+            color: #666;
+        }
+
+        .price {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff8c42;
+            margin-bottom: 20px;
+        }
+
+        .package-btn {
+            display: inline-block;
+            text-decoration: none;
+            background: #087f8c;
+            color: white;
+            padding: 11px 22px;
+            border-radius: 6px;
+        }
+
+        /* WHY US */
+
+        .why-us {
+            background: #087f8c;
+            color: white;
+        }
+
+        .why-us .section-title {
+            color: white;
+        }
+
+        .why-us .section-description {
+            color: #e0f5f7;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(210px, 1fr));
+            gap: 25px;
+        }
+
+        .feature {
+            text-align: center;
+            padding: 25px;
+        }
+
+        .feature-icon {
+            font-size: 42px;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            line-height: 1.6;
+            color: #e4f7f8;
+        }
+
+        /* TESTIMONIAL */
+
+        .testimonials {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .stars {
+            color: #ff8c42;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .testimonial p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .testimonial h4 {
+            color: #087f8c;
+        }
+
+        /* NEWSLETTER */
+
+        .newsletter {
+            background: #eef7f8;
+            text-align: center;
+            padding: 65px 20px;
+        }
+
+        .newsletter h2 {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .newsletter p {
+            color: #777;
+            margin-bottom: 25px;
+        }
+
+        .newsletter-form {
+            max-width: 600px;
+            margin: auto;
+            display: flex;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            padding: 14px;
+            border: 1px solid #ddd;
+            outline: none;
+        }
+
+        .newsletter-form button {
+            border: none;
+            background: #ff8c42;
+            color: white;
+            padding: 0 25px;
+            cursor: pointer;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #173b3f;
+            color: white;
+            padding: 50px 8% 25px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns:
+                repeat(auto-fit, minmax(180px, 1fr));
+            gap: 35px;
+        }
+
+        footer h3 {
+            margin-bottom: 15px;
+        }
+
+        footer p {
+            color: #c4d5d6;
+            line-height: 1.6;
+        }
+
+        footer a {
+            display: block;
+            text-decoration: none;
+            color: #c4d5d6;
+            margin-bottom: 10px;
+        }
+
+        footer a:hover {
+            color: white;
+        }
+
+        .copyright {
+            border-top: 1px solid #426064;
+            margin-top: 35px;
+            padding-top: 20px;
+            text-align: center;
+            color: #9eb4b6;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                min-height: 70vh;
+            }
+
+            .hero-content h1 {
+                font-size: 42px;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+            }
+
+            .search-form button {
+                padding: 14px;
+            }
+        }
+
+        @media (max-width: 500px) {
+
+            nav {
+                padding: 0 5%;
+            }
+
+            .hero {
+                padding: 45px 6%;
+            }
+
+            .hero-content h1 {
+                font-size: 35px;
+            }
+
+            .hero-content p {
+                font-size: 16px;
+            }
+
+            .section {
+                padding: 55px 6%;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .newsletter-form input,
+            .newsletter-form button {
+                padding: 14px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- NAVBAR -->
+
+    <nav>
+
+        <div class="logo">
+            Travel<span>Mate</span>
+        </div>
+
+        <ul class="nav-links">
+
+            <li>
+                <a href="#home">Home</a>
+            </li>
+
+            <li>
+                <a href="#destinations">Destinations</a>
+            </li>
+
+            <li>
+                <a href="#packages">Packages</a>
+            </li>
+
+            <li>
+                <a href="#about">Why Us</a>
+            </li>
+
+        </ul>
+
+        <a href="#packages" class="book-btn">
+            Book Now
+        </a>
+
+    </nav>
+
+
+    <!-- HERO -->
+
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <h1>
+                Explore The World With Us
+            </h1>
+
+            <p>
+                Discover beautiful destinations,
+                unforgettable experiences and
+                exciting adventures around the world.
+            </p>
+
+            <a href="#destinations" class="hero-btn">
+                Start Exploring
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <div class="search-box">
+
+        <form class="search-form">
+
+            <input
+                type="text"
+                placeholder="Where do you want to go?"
+            >
+
+            <input
+                type="date"
+            >
+
+            <select>
+
+                <option>
+                    Select Travelers
+                </option>
+
+                <option>
+                    1 Traveler
+                </option>
+
+                <option>
+                    2 Travelers
+                </option>
+
+                <option>
+                    3 Travelers
+                </option>
+
+                <option>
+                    4+ Travelers
+                </option>
+
+            </select>
+
+            <button type="submit">
+                Search
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- DESTINATIONS -->
+
+    <section class="section" id="destinations">
+
+        <h2 class="section-title">
+            Popular Destinations
+        </h2>
+
+        <p class="section-description">
+            Discover some of the most beautiful
+            places around the world.
+        </p>
+
+
+        <div class="destinations">
+
+
+            <div class="destination">
+
+                <img
+                    src="https://images.unsplash.com/photo-1537996194471-e657df975ab4"
+                    alt="Bali"
+                >
+
+                <div class="destination-info">
+
+                    <h3>
+                        Bali, Indonesia
+                    </h3>
+
+                    <p>
+                        Beautiful beaches, temples
+                        and tropical adventures.
+                    </p>
+
+                    <a href="#" class="explore">
+                        Explore →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="destination">
+
+                <img
+                    src="https://images.unsplash.com/photo-1499856871958-5b9627545d1a"
+                    alt="Paris"
+                >
+
+                <div class="destination-info">
+
+                    <h3>
+                        Paris, France
+                    </h3>
+
+                    <p>
+                        Experience art, culture,
+                        food and romantic streets.
+                    </p>
+
+                    <a href="#" class="explore">
+                        Explore →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="destination">
+
+                <img
+                    src="https://images.unsplash.com/photo-1518391846015-55a9cc003b25"
+                    alt="Switzerland"
+                >
+
+                <div class="destination-info">
+
+                    <h3>
+                        Switzerland
+                    </h3>
+
+                    <p>
+                        Snowy mountains, peaceful
+                        lakes and amazing views.
+                    </p>
+
+                    <a href="#" class="explore">
+                        Explore →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <div class="destination">
+
+                <img
+                    src="https://images.unsplash.com/photo-1500534623283-312aade485b7"
+                    alt="Dubai"
+                >
+
+                <div class="destination-info">
+
+                    <h3>
+                        Dubai, UAE
+                    </h3>
+
+                    <p>
+                        Luxury shopping, skyscrapers
+                        and desert adventures.
+                    </p>
+
+                    <a href="#" class="explore">
+                        Explore →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- PACKAGES -->
+
+    <section class="section" id="packages">
+
+        <h2 class="section-title">
+            Travel Packages
+        </h2>
+
+        <p class="section-description">
+            Choose the perfect package for your next trip.
+        </p>
+
+
+        <div class="packages">
+
+
+            <div class="package">
+
+                <h3>
+                    Starter
+                </h3>
+
+                <div class="days">
+                    3 Days / 2 Nights
+                </div>
+
+                <ul>
+
+                    <li>✓ Hotel Stay</li>
+                    <li>✓ Breakfast</li>
+                    <li>✓ City Tour</li>
+                    <li>✓ Airport Pickup</li>
+
+                </ul>
+
+                <div class="price">
+                    ₹12,999
+                </div>
+
+                <a href="#" class="package-btn">
+                    Choose Plan
+                </a>
+
+            </div>
+
+
+            <div class="package">
+
+                <h3>
+                    Explorer
+                </h3>
+
+                <div class="days">
+                    5 Days / 4 Nights
+                </div>
+
+                <ul>
+
+                    <li>✓ Premium Hotel</li>
+                    <li>✓ All Meals</li>
+                    <li>✓ Guided Tours</li>
+                    <li>✓ Airport Transfer</li>
+
+                </ul>
+
+                <div class="price">
+                    ₹24,999
+                </div>
+
+                <a href="#" class="package-btn">
+                    Choose Plan
+                </a>
+
+            </div>
+
+
+            <div class="package">
+
+                <h3>
+                    Premium
+                </h3>
+
+                <div class="days">
+                    7 Days / 6 Nights
+                </div>
+
+                <ul>
+
+                    <li>✓ Luxury Hotel</li>
+                    <li>✓ All Meals</li>
+                    <li>✓ Private Guide</li>
+                    <li>✓ Complete Transport</li>
+
+                </ul>
+
+                <div class="price">
+                    ₹39,999
+                </div>
+
+                <a href="#" class="package-btn">
+                    Choose Plan
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- WHY US -->
+
+    <section class="section why-us" id="about">
+
+        <h2 class="section-title">
+            Why Travel With Us?
+        </h2>
+
+        <p class="section-description">
+            We make your journey simple,
+            comfortable and memorable.
+        </p>
+
+
+        <div class="features">
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🌍
+                </div>
+
+                <h3>
+                    Amazing Destinations
+                </h3>
+
+                <p>
+                    Explore beautiful places
+                    selected by our travel experts.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    💰
+                </div>
+
+                <h3>
+                    Best Prices
+                </h3>
+
+                <p>
+                    Get affordable packages
+                    without compromising quality.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🛡️
+                </div>
+
+                <h3>
+                    Safe Travel
+                </h3>
+
+                <p>
+                    Your safety and comfort
+                    are always our priority.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">
+                    🎧
+                </div>
+
+                <h3>
+                    24/7 Support
+                </h3>
+
+                <p>
+                    Our support team is available
+                    whenever you need assistance.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- TESTIMONIALS -->
+
+    <section class="section">
+
+        <h2 class="section-title">
+            What Travelers Say
+        </h2>
+
+        <p class="section-description">
+            Thousands of travelers trust TravelMate.
+        </p>
+
+
+        <div class="testimonials">
+
+
+            <div class="testimonial">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "The entire trip was perfectly
+                    planned. Everything was smooth
+                    and enjoyable."
+                </p>
+
+                <h4>
+                    — Rahul Sharma
+                </h4>
+
+            </div>
+
+
+            <div class="testimonial">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "Amazing service and beautiful
+                    destinations. I will definitely
+                    travel with them again."
+                </p>
+
+                <h4>
+                    — Priya Verma
+                </h4>
+
+            </div>
+
+
+            <div class="testimonial">
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <p>
+                    "The package was affordable and
+                    the hotel was excellent. Highly
+                    recommended!"
+                </p>
+
+                <h4>
+                    — Aman Singh
+                </h4>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- NEWSLETTER -->
+
+    <section class="newsletter">
+
+        <h2>
+            Get Travel Inspiration
+        </h2>
+
+        <p>
+            Subscribe to receive travel tips,
+            offers and new destinations.
+        </p>
+
+
+        <form class="newsletter-form">
+
+            <input
+                type="email"
+                placeholder="Enter your email"
+                required
+            >
+
+            <button type="submit">
+                Subscribe
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-grid">
+
+
+            <div>
+
+                <h3>
+                    TravelMate
+                </h3>
+
+                <p>
+                    Making your travel dreams
+                    a reality with unforgettable
+                    experiences.
+                </p>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Quick Links
+                </h3>
+
+                <a href="#home">Home</a>
+                <a href="#destinations">Destinations</a>
+                <a href="#packages">Packages</a>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Support
+                </h3>
+
+                <a href="#">Help Center</a>
+                <a href="#">Contact Us</a>
+                <a href="#">FAQs</a>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Follow Us
+                </h3>
+
+                <a href="#">Instagram</a>
+                <a href="#">Facebook</a>
+                <a href="#">YouTube</a>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="copyright">
+
+            <p>
+                © 2026 TravelMate. All Rights Reserved.
+            </p>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>
+```
