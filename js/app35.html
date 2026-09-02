@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Quiz</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f4f4f4;
+            text-align: center;
+            margin: 0;
+        }
+
+        header {
+            background: #222;
+            color: white;
+            padding: 25px;
+        }
+
+        .quiz {
+            width: 450px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px #ccc;
+        }
+
+        .option {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #aaa;
+            background: #f5f5f5;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        .option:hover {
+            background: #ddd;
+        }
+
+        button {
+            padding: 10px 25px;
+            background: #222;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Quick Quiz</h1>
+    <p>Test Your Knowledge</p>
+</header>
+
+<div class="quiz">
+
+    <h2 id="question">Which language is used for web pages?</h2>
+
+    <button class="option" onclick="checkAnswer('Java')">
+        Java
+    </button>
+
+    <button class="option" onclick="checkAnswer('HTML')">
+        HTML
+    </button>
+
+    <button class="option" onclick="checkAnswer('Python')">
+        Python
+    </button>
+
+    <button class="option" onclick="checkAnswer('C++')">
+        C++
+    </button>
+
+    <p id="result"></p>
+
+</div>
+
+<script>
+    function checkAnswer(answer) {
+
+        let result = document.getElementById("result");
+
+        if (answer === "HTML") {
+            result.textContent = "Correct Answer! 🎉";
+        } else {
+            result.textContent = "Wrong Answer! Try Again.";
+        }
+    }
+</script>
+
+</body>
+</html>
