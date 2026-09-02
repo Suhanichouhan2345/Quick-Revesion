@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expense Tracker</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f5f5;
+            margin: 0;
+        }
+
+        header {
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 25px;
+        }
+
+        .container {
+            width: 400px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 12px #ccc;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: #222;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        .expense {
+            display: flex;
+            justify-content: space-between;
+            background: #eee;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        #total {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Expense Tracker</h1>
+    <p>Track your daily expenses</p>
+</header>
+
+<div class="container">
+
+    <input type="text" id="name" placeholder="Expense name">
+
+    <input type="number" id="amount" placeholder="Amount">
+
+    <select id="category">
+        <option value="Food">Food</option>
+        <option value="Travel">Travel</option>
+        <option value="Shopping">Shopping</option>
+        <option value="Other">Other</option>
+    </select>
+
+    <button onclick="addExpense()">Add Expense</button>
+
+    <div id="expenses"></div>
+
+    <div id="total">Total: ₹0</div>
+
+</div>
+
+<script>
+    let total = 0;
+
+    function addExpense() {
+        let name = document.getElementById("name").value;
+        let amount = Number(document.getElementById("amount").value);
+        let category = document.getElementById("category").value;
+
+        if (name === "" || amount <= 0) {
+            alert("Enter valid expense details");
+            return;
+        }
+
+        let div = document.createElement("div");
+        div.className = "expense";
+
+        div.innerHTML = `
+            <span>${name} (${category})</span>
+            <span>₹${amount}</span>
+        `;
+
+        document.getElementById("expenses").appendChild(div);
+
+        total += amount;
+        document.getElementById("total").textContent =
+            "Total: ₹" + total;
+
+        document.getElementById("name").value = "";
+        document.getElementById("amount").value = "";
+    }
+</script>
+
+</body>
+</html>
