@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Profile</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+        }
+
+        header {
+            background: #222;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card {
+            background: white;
+            width: 350px;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px #ccc;
+        }
+
+        .card h2 {
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            margin: 10px 0;
+            color: #555;
+        }
+
+        .skills {
+            margin-top: 20px;
+        }
+
+        .skills span {
+            display: inline-block;
+            background: #eee;
+            padding: 8px 12px;
+            margin: 5px;
+            border-radius: 5px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background: #222;
+            color: white;
+        }
+
+        footer {
+            margin-top: 50px;
+            background: #222;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>My Student Profile</h1>
+
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Skills</a>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <div class="card">
+            <h2>Software Developer</h2>
+
+            <p>Hello! I am a Computer Science student.</p>
+            <p>I enjoy learning Java, JavaScript and Web Development.</p>
+
+            <div class="skills">
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>Java</span>
+            </div>
+
+            <button>View Profile</button>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>© 2026 My Portfolio</p>
+    </footer>
+
+</body>
+</html>
