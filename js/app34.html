@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Card</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #eef2f3;
+            text-align: center;
+            margin: 0;
+        }
+
+        header {
+            background: #222;
+            color: white;
+            padding: 25px;
+        }
+
+        .card {
+            width: 350px;
+            margin: 50px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px #ccc;
+        }
+
+        .icon {
+            font-size: 60px;
+            margin: 15px;
+        }
+
+        h2 {
+            margin: 10px;
+        }
+
+        .temp {
+            font-size: 45px;
+            font-weight: bold;
+        }
+
+        .info {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 25px;
+        }
+
+        .info div {
+            background: #eee;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        button {
+            margin-top: 25px;
+            padding: 10px 25px;
+            border: none;
+            background: #222;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>Weather App</h1>
+        <p>Today's Weather Information</p>
+    </header>
+
+    <div class="card">
+
+        <h2>Indore</h2>
+
+        <div class="icon">☀️</div>
+
+        <div class="temp">28°C</div>
+
+        <p>Sunny</p>
+
+        <div class="info">
+            <div>
+                <b>Humidity</b>
+                <p>55%</p>
+            </div>
+
+            <div>
+                <b>Wind</b>
+                <p>12 km/h</p>
+            </div>
+        </div>
+
+        <button onclick="showMessage()">Check Weather</button>
+
+    </div>
+
+    <script>
+        function showMessage() {
+            alert("Today's weather is sunny ☀️");
+        }
+    </script>
+
+</body>
+</html>
