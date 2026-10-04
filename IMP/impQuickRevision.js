@@ -78,7 +78,7 @@ console.log(student.name);
 console.log(student["age"]);
 
 // 11. Destructuring
-const { name, course } = student;
+const {  course } = student;
 
 const [a, b] = numbers;
 
